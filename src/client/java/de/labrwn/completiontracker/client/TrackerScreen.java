@@ -36,7 +36,7 @@ public class TrackerScreen extends Screen {
 			{"all", "story", "nether", "end", "adventure", "husbandry"},
 			{"all_days"}};
 	private static final int ROW_H = 24;
-	private static final int COL_W = 150;
+	private static final int COL_W = 132;
 	private static final int CHRON_ROW = 22;
 
 	// remembered between openings
@@ -156,15 +156,28 @@ public class TrackerScreen extends Screen {
 
 	private int tabRowY, catRowY;
 	private boolean filtersOwnRow;
+	private boolean compactFilters;
+	private int lastTabEnd;
+
+	/**
+	 * The book has a fixed size in GUI pixels (like the vanilla inventory), so it gets smaller on screen
+	 * with a smaller GUI scale. It only shrinks when the window is too small, always leaving a margin.
+	 */
+	private static final int BOOK_W = 440;
+	private static final int BOOK_H = 250;
 
 	private void layout() {
-		int marginX = Math.max(20, width / 14);
-		bw = Math.min(width - 2 * marginX, 760);
-		int topRows = 44;
-		filtersOwnRow = categoriesWidth() + filtersWidth() + 30 > bw;
-		if (filtersOwnRow) topRows += 22;
-		int marginY = Math.max(10, height / 16);
-		bh = Math.min(height - 2 * marginY - topRows, 440);
+		int marginX = Math.max(12, width / 12);
+		bw = Math.min(width - 2 * marginX, BOOK_W);
+		compactFilters = false;
+		filtersOwnRow = false;
+		if (categoriesWidth() + filtersWidth() + 24 > bw) {
+			compactFilters = true;
+			filtersOwnRow = categoriesWidth() + filtersWidth() + 24 > bw;
+		}
+		int topRows = filtersOwnRow ? 64 : 42;
+		int marginY = Math.max(8, height / 14);
+		bh = Math.min(height - 2 * marginY - topRows, BOOK_H);
 		bx = (width - bw) / 2;
 		by = (height - bh - topRows) / 2 + topRows;
 		tabRowY = by - topRows;
@@ -315,6 +328,7 @@ public class TrackerScreen extends Screen {
 			hits.add(new Hit(x, ty, w, 16, () -> switchTab(t)));
 			x += w + 5;
 		}
+		lastTabEnd = x;
 		// category bookmarks, attached to the book
 		x = bx + 12;
 		for (int i = 0; i < CATS[tab].length; i++) {
@@ -389,12 +403,12 @@ public class TrackerScreen extends Screen {
 			else if (hover) g.fill(listX, y, listX + listW, y + ROW_H - 1, Ui.HOVER);
 			for (int dx = 0; dx < listW; dx += 4) g.fill(listX + dx, y + ROW_H - 1, listX + dx + 2, y + ROW_H, Ui.PAGE_LINE);
 			Ui.frame(g, listX + 3, y + 2, 19, r.complete, r.icon);
-			Component badge = Component.translatable("completiontracker.diff." + r.diff);
-			int bw2 = Ui.plaqueWidth(font, badge);
 			int right = listX + listW - 14;
 			Ui.state(g, font, right, y + 7, r.state);
-			Ui.plaque(g, font, badge, right - 4 - bw2, y + 6, Ui.DIFF[r.diff]);
-			int textW = right - 8 - bw2 - (listX + 27);
+			// difficulty as a small coloured square; the word is in the tooltip and the details
+			g.fill(right - 11, y + 8, right - 3, y + 16, 0xFF000000);
+			g.fill(right - 10, y + 9, right - 4, y + 15, Ui.DIFF[r.diff]);
+			int textW = right - 16 - (listX + 27);
 			Ui.textClip(g, font, r.name, listX + 27, y + 3, textW, Ui.INK);
 			Ui.textClip(g, font, r.meta, listX + 27, y + 13, textW, Ui.INK_SOFT);
 			if (hover) rowTooltip(g, r, mx, my);
@@ -719,9 +733,18 @@ public class TrackerScreen extends Screen {
 	private List<Btn> filterButtons() {
 		List<Btn> btns = new ArrayList<>();
 		if (isListTab()) {
-			btns.add(new Btn(Component.translatable("completiontracker.difficulty", Component.translatable("completiontracker.diff." + diff)).append(" ▼"), Ui.DIFF[diff], diff != 0, null, "diff"));
-			btns.add(new Btn(Component.translatable("completiontracker.show", Component.translatable("completiontracker.show." + show)).append(" ▼"), 0, show != 0, null, "show"));
-			btns.add(new Btn(Component.translatable("completiontracker.sort", Component.translatable("completiontracker.sort." + sort)).append(" ▼"), 0, false, null, "sort"));
+			Component d = Component.translatable("completiontracker.diff." + diff);
+			Component s = Component.translatable("completiontracker.show." + show);
+			Component o = Component.translatable("completiontracker.sort." + sort);
+			if (compactFilters) {
+				btns.add(new Btn(d.copy().append(" ▼"), Ui.DIFF[diff], diff != 0, null, "diff"));
+				btns.add(new Btn(s.copy().append(" ▼"), 0, show != 0, null, "show"));
+				btns.add(new Btn(o.copy().append(" ▼"), 0, false, null, "sort"));
+			} else {
+				btns.add(new Btn(Component.translatable("completiontracker.difficulty", d).append(" ▼"), Ui.DIFF[diff], diff != 0, null, "diff"));
+				btns.add(new Btn(Component.translatable("completiontracker.show", s).append(" ▼"), 0, show != 0, null, "show"));
+				btns.add(new Btn(Component.translatable("completiontracker.sort", o).append(" ▼"), 0, false, null, "sort"));
+			}
 		} else if (tab == 4) {
 			btns.add(new Btn(Component.translatable("completiontracker.chronicle.start"), 0, false, () -> chronX = 0, null));
 			btns.add(new Btn(Component.literal("<"), 0, false, () -> chronX -= COL_W * 3, null));
@@ -735,12 +758,15 @@ public class TrackerScreen extends Screen {
 	private void drawFilters(GuiGraphicsExtractor g, int mx, int my) {
 		List<Btn> btns = filterButtons();
 		int h = 16;
-		int y = filtersOwnRow ? tabRowY + 22 : catRowY - 1;
+		int y = filtersOwnRow ? tabRowY + 21 : catRowY - 1;
 		int x = bx + bw - 6 - filtersWidth();
 		for (Btn b : btns) {
 			int w = Ui.buttonWidth(font, b.text, b.dot != 0);
 			boolean hover = Ui.in(mx, my, x, y, w, h) && openDropdown == null;
 			Ui.button(g, font, b.text, x, y, w, h, hover, b.on, b.dot);
+			if (hover && compactFilters && b.dropdown != null) {
+				g.setTooltipForNextFrame(font, Component.translatable("completiontracker.filter." + b.dropdown), mx, my);
+			}
 			final int bxp = x, byp = y + h;
 			if (b.dropdown != null) {
 				hits.add(new Hit(x, y, w, h, () -> {
@@ -762,6 +788,7 @@ public class TrackerScreen extends Screen {
 		Component pct = Component.literal(all.percent() + " %  " + all.done + " / " + all.total);
 		int w = font.width(overall) + 6 + 70 + 6 + font.width(pct);
 		int x = bx + bw - 6 - w;
+		if (x < lastTabEnd + 10) return; // only when it fits next to the tabs
 		int y = tabRowY + 4;
 		g.text(font, overall, x, y, Ui.WHITE, true);
 		x += font.width(overall) + 6;
