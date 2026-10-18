@@ -1,0 +1,50 @@
+Compiled from "Slot.java"
+public class net.minecraft.world.inventory.Slot {
+  public final net.minecraft.world.Container container;
+  public int index;
+  public final int x;
+  public final int y;
+  public net.minecraft.world.inventory.Slot(net.minecraft.world.Container, int, int, int);
+  public void onQuickCraft(net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack);
+  public void onTake(net.minecraft.world.entity.player.Player, net.minecraft.world.item.ItemStack);
+  public boolean mayPlace(net.minecraft.world.item.ItemStack);
+  public net.minecraft.world.item.ItemStack getItem();
+  public boolean hasItem();
+  public void setByPlayer(net.minecraft.world.item.ItemStack);
+  public void setByPlayer(net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack);
+  public void set(net.minecraft.world.item.ItemStack);
+  public void setChanged();
+  public int getMaxStackSize();
+  public int getMaxStackSize(net.minecraft.world.item.ItemStack);
+  public net.minecraft.resources.Identifier getNoItemIcon();
+  public net.minecraft.world.item.ItemStack remove(int);
+  public boolean mayPickup(net.minecraft.world.entity.player.Player);
+  public boolean isActive();
+  public java.util.Optional<net.minecraft.world.item.ItemStack> tryRemove(int, int, net.minecraft.world.entity.player.Player);
+  public net.minecraft.world.item.ItemStack safeTake(int, int, net.minecraft.world.entity.player.Player);
+  public net.minecraft.world.item.ItemStack safeClone(net.minecraft.world.entity.player.Player);
+  public net.minecraft.world.item.ItemStack safeInsert(net.minecraft.world.item.ItemStack);
+  public net.minecraft.world.item.ItemStack safeInsert(net.minecraft.world.item.ItemStack, int);
+  public boolean allowModification(net.minecraft.world.entity.player.Player);
+  public int getContainerSlot();
+  public boolean isHighlightable();
+  public boolean isFake();
+}
+Compiled from "SlotRange.java"
+public interface net.minecraft.world.inventory.SlotRange extends net.minecraft.util.StringRepresentable {
+  public abstract it.unimi.dsi.fastutil.ints.IntList slots();
+  public default int size();
+  public static net.minecraft.world.inventory.SlotRange of(java.lang.String, it.unimi.dsi.fastutil.ints.IntList);
+}
+Compiled from "SlotRanges.java"
+public class net.minecraft.world.inventory.SlotRanges {
+  public static final int MOB_INVENTORY_SLOT_OFFSET;
+  public static final int MOB_INVENTORY_SIZE;
+  public static final com.mojang.serialization.Codec<net.minecraft.world.inventory.SlotRange> CODEC;
+  public net.minecraft.world.inventory.SlotRanges();
+  public static net.minecraft.world.inventory.SlotRange nameToIds(java.lang.String);
+  public static java.util.stream.Stream<java.lang.String> allNames();
+  public static java.util.stream.Stream<java.lang.String> singleSlotNames();
+  public static net.minecraft.world.inventory.SlotRange tryRead(com.mojang.brigadier.StringReader);
+  public static net.minecraft.world.inventory.SlotRange read(com.mojang.brigadier.StringReader) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
+}

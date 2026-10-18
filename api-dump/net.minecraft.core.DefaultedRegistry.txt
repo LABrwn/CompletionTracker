@@ -1,0 +1,7 @@
+Compiled from "DefaultedRegistry.java"
+public interface net.minecraft.core.DefaultedRegistry<T> extends net.minecraft.core.Registry<T> {
+  public abstract net.minecraft.resources.Identifier getKey(T);
+  public abstract T getValue(net.minecraft.resources.Identifier);
+  public abstract T byId(int);
+  public abstract net.minecraft.resources.Identifier getDefaultKey();
+}

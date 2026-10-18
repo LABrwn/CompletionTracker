@@ -1,0 +1,7 @@
+Compiled from "ServerAdvancementManager.java"
+public class net.minecraft.server.ServerAdvancementManager {
+  public net.minecraft.server.ServerAdvancementManager(net.minecraft.core.HolderLookup$Provider);
+  public net.minecraft.advancements.AdvancementHolder get(net.minecraft.resources.Identifier);
+  public net.minecraft.advancements.AdvancementTree tree();
+  public java.util.Collection<net.minecraft.advancements.AdvancementHolder> getAllAdvancements();
+}

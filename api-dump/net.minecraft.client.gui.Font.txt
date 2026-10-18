@@ -1,0 +1,57 @@
+Compiled from "Font.java"
+public class net.minecraft.client.gui.Font {
+  public static final float SHADOW_DEPTH;
+  public final int lineHeight;
+  public net.minecraft.client.gui.Font(net.minecraft.client.gui.Font$Provider);
+  public java.lang.String bidirectionalShaping(java.lang.String);
+  public net.minecraft.client.gui.Font$PreparedText prepare8xTextOutline(net.minecraft.util.FormattedCharSequence, float, float, int);
+  public net.minecraft.client.gui.font.TextRenderable prepareBackground(float, float, float, float, int);
+  public net.minecraft.client.gui.Font$PreparedText prepareText(java.lang.String, float, float, int, boolean, int);
+  public net.minecraft.client.gui.Font$PreparedText prepareText(net.minecraft.util.FormattedCharSequence, float, float, int, boolean, boolean, int);
+  public int width(java.lang.String);
+  public int width(net.minecraft.network.chat.FormattedText);
+  public int width(net.minecraft.util.FormattedCharSequence);
+  public java.lang.String plainSubstrByWidth(java.lang.String, int, boolean);
+  public java.lang.String plainSubstrByWidth(java.lang.String, int);
+  public net.minecraft.network.chat.FormattedText substrByWidth(net.minecraft.network.chat.FormattedText, int);
+  public int wordWrapHeight(net.minecraft.network.chat.FormattedText, int);
+  public java.util.List<net.minecraft.util.FormattedCharSequence> split(net.minecraft.network.chat.FormattedText, int);
+  public java.util.List<net.minecraft.network.chat.FormattedText> splitIgnoringLanguage(net.minecraft.network.chat.FormattedText, int);
+  public boolean isBidirectional();
+  public net.minecraft.client.StringSplitter getSplitter();
+}
+Compiled from "Font.java"
+public final class net.minecraft.client.gui.Font$DisplayMode extends java.lang.Enum<net.minecraft.client.gui.Font$DisplayMode> {
+  public static final net.minecraft.client.gui.Font$DisplayMode NORMAL;
+  public static final net.minecraft.client.gui.Font$DisplayMode SEE_THROUGH;
+  public static final net.minecraft.client.gui.Font$DisplayMode POLYGON_OFFSET;
+  public static net.minecraft.client.gui.Font$DisplayMode[] values();
+  public static net.minecraft.client.gui.Font$DisplayMode valueOf(java.lang.String);
+}
+Compiled from "Font.java"
+public interface net.minecraft.client.gui.Font$GlyphVisitor {
+  public default void acceptGlyph(net.minecraft.client.gui.font.TextRenderable$Styled);
+  public default void acceptEffect(net.minecraft.client.gui.font.TextRenderable);
+  public default void acceptRenderable(net.minecraft.client.gui.font.TextRenderable);
+  public default void acceptEmptyArea(net.minecraft.client.gui.font.EmptyArea);
+}
+Compiled from "Font.java"
+public interface net.minecraft.client.gui.Font$PreparedText {
+  public abstract void visit(net.minecraft.client.gui.Font$GlyphVisitor);
+  public abstract net.minecraft.client.gui.navigation.ScreenRectangle bounds();
+}
+Compiled from "Font.java"
+class net.minecraft.client.gui.Font$PreparedTextBuilder implements net.minecraft.client.gui.Font$PreparedText,net.minecraft.util.FormattedCharSink {
+  public net.minecraft.client.gui.Font$PreparedTextBuilder(net.minecraft.client.gui.Font, float, float, int, boolean, boolean);
+  public net.minecraft.client.gui.Font$PreparedTextBuilder(net.minecraft.client.gui.Font, float, float, int, int, boolean, boolean);
+  public boolean accept(int, net.minecraft.network.chat.Style, int);
+  public boolean accept(int, net.minecraft.network.chat.Style, net.minecraft.client.gui.font.glyphs.BakedGlyph);
+  public void visit(net.minecraft.client.gui.Font$GlyphVisitor);
+  public void discardEffects();
+  public net.minecraft.client.gui.navigation.ScreenRectangle bounds();
+}
+Compiled from "Font.java"
+public interface net.minecraft.client.gui.Font$Provider {
+  public abstract net.minecraft.client.gui.GlyphSource glyphs(net.minecraft.network.chat.FontDescription);
+  public abstract net.minecraft.client.gui.font.glyphs.EffectGlyph effect();
+}

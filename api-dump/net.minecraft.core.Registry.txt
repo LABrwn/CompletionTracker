@@ -1,0 +1,146 @@
+Compiled from "Registry.java"
+public interface net.minecraft.core.Registry<T> extends net.minecraft.core.IdMap<T>, com.mojang.serialization.Keyable, net.minecraft.core.HolderLookup$RegistryLookup<T>, net.fabricmc.fabric.api.event.registry.FabricRegistry {
+  public abstract net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>> key();
+  public default com.mojang.serialization.Codec<T> byNameCodec();
+  public default com.mojang.serialization.Codec<net.minecraft.core.Holder<T>> holderByNameCodec();
+  public default <U> java.util.stream.Stream<U> keys(com.mojang.serialization.DynamicOps<U>);
+  public abstract net.minecraft.resources.Identifier getKey(T);
+  public abstract java.util.Optional<net.minecraft.resources.ResourceKey<T>> getResourceKey(T);
+  public abstract int getId(T);
+  public abstract T getValue(net.minecraft.resources.ResourceKey<T>);
+  public abstract T getValue(net.minecraft.resources.Identifier);
+  public abstract java.util.Optional<net.minecraft.core.RegistrationInfo> registrationInfo(net.minecraft.resources.ResourceKey<T>);
+  public default java.util.Optional<T> getOptional(net.minecraft.resources.Identifier);
+  public default java.util.Optional<T> getOptional(net.minecraft.resources.ResourceKey<T>);
+  public abstract java.util.Optional<net.minecraft.core.Holder$Reference<T>> getAny();
+  public default T getValueOrThrow(net.minecraft.resources.ResourceKey<T>);
+  public abstract java.util.Set<net.minecraft.resources.Identifier> keySet();
+  public abstract java.util.Set<java.util.Map$Entry<net.minecraft.resources.ResourceKey<T>, T>> entrySet();
+  public abstract java.util.Set<net.minecraft.resources.ResourceKey<T>> registryKeySet();
+  public abstract java.util.Optional<net.minecraft.core.Holder$Reference<T>> getRandom(net.minecraft.util.RandomSource);
+  public default java.util.stream.Stream<T> stream();
+  public abstract boolean containsKey(net.minecraft.resources.Identifier);
+  public abstract boolean containsKey(net.minecraft.resources.ResourceKey<T>);
+  public static <T> T register(net.minecraft.core.Registry<? super T>, java.lang.String, T);
+  public static <V, T extends V> T register(net.minecraft.core.Registry<V>, net.minecraft.resources.Identifier, T);
+  public static <V, T extends V> T register(net.minecraft.core.Registry<V>, net.minecraft.resources.ResourceKey<V>, T);
+  public static <R, T extends R> net.minecraft.core.Holder$Reference<T> registerForHolder(net.minecraft.core.Registry<R>, net.minecraft.resources.ResourceKey<R>, T);
+  public static <R, T extends R> net.minecraft.core.Holder$Reference<T> registerForHolder(net.minecraft.core.Registry<R>, net.minecraft.resources.Identifier, T);
+  public abstract net.minecraft.core.Registry<T> freeze();
+  public abstract net.minecraft.core.Holder$Reference<T> createIntrusiveHolder(T);
+  public abstract java.util.Optional<net.minecraft.core.Holder$Reference<T>> get(int);
+  public abstract java.util.Optional<net.minecraft.core.Holder$Reference<T>> get(net.minecraft.resources.Identifier);
+  public abstract net.minecraft.core.Holder<T> wrapAsHolder(T);
+  public default java.lang.Iterable<net.minecraft.core.Holder<T>> getTagOrEmpty(net.minecraft.tags.TagKey<T>);
+  public abstract java.util.stream.Stream<net.minecraft.core.HolderSet$Named<T>> getTags();
+  public default net.minecraft.core.IdMap<net.minecraft.core.Holder<T>> asHolderIdMap();
+  public abstract net.minecraft.core.Registry$PendingTags<T> prepareTagReload(net.minecraft.tags.TagLoader$LoadResult<T>);
+  public abstract net.minecraft.core.component.DataComponentLookup<T> componentLookup();
+}
+Compiled from "Registry.java"
+public interface net.minecraft.core.Registry$PendingTags<T> {
+  public abstract net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<? extends T>> key();
+  public abstract net.minecraft.core.HolderLookup$RegistryLookup<T> lookup();
+  public abstract void apply();
+  public abstract int size();
+}
+Compiled from "RegistryAccess.java"
+public interface net.minecraft.core.RegistryAccess extends net.minecraft.core.HolderLookup$Provider {
+  public static final org.slf4j.Logger LOGGER;
+  public static final net.minecraft.core.RegistryAccess$Frozen EMPTY;
+  public abstract <E> java.util.Optional<net.minecraft.core.Registry<E>> lookup(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<? extends E>>);
+  public default <E> net.minecraft.core.Registry<E> lookupOrThrow(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<? extends E>>);
+  public abstract java.util.stream.Stream<net.minecraft.core.RegistryAccess$RegistryEntry<?>> registries();
+  public default java.util.stream.Stream<net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>> listRegistryKeys();
+  public static net.minecraft.core.RegistryAccess$Frozen fromRegistryOfRegistries(net.minecraft.core.Registry<? extends net.minecraft.core.Registry<?>>);
+  public default net.minecraft.core.RegistryAccess$Frozen freeze();
+  public default net.minecraft.core.HolderLookup$RegistryLookup lookupOrThrow(net.minecraft.resources.ResourceKey);
+  public default net.minecraft.core.HolderGetter lookupOrThrow(net.minecraft.resources.ResourceKey);
+}
+Compiled from "RegistryAccess.java"
+public interface net.minecraft.core.RegistryAccess$Frozen extends net.minecraft.core.RegistryAccess {
+}
+Compiled from "RegistryAccess.java"
+public class net.minecraft.core.RegistryAccess$ImmutableRegistryAccess implements net.minecraft.core.RegistryAccess {
+  public net.minecraft.core.RegistryAccess$ImmutableRegistryAccess(java.util.List<? extends net.minecraft.core.Registry<?>>);
+  public net.minecraft.core.RegistryAccess$ImmutableRegistryAccess(java.util.Map<? extends net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>, ? extends net.minecraft.core.Registry<?>>);
+  public net.minecraft.core.RegistryAccess$ImmutableRegistryAccess(java.util.stream.Stream<net.minecraft.core.RegistryAccess$RegistryEntry<?>>);
+  public <E> java.util.Optional<net.minecraft.core.Registry<E>> lookup(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<? extends E>>);
+  public java.util.stream.Stream<net.minecraft.core.RegistryAccess$RegistryEntry<?>> registries();
+}
+Compiled from "RegistryAccess.java"
+public final class net.minecraft.core.RegistryAccess$RegistryEntry<T> extends java.lang.Record {
+  public net.minecraft.core.RegistryAccess$RegistryEntry(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, net.minecraft.core.Registry<T>);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>> key();
+  public net.minecraft.core.Registry<T> value();
+}
+Compiled from "RegistrySetBuilder.java"
+public class net.minecraft.core.RegistrySetBuilder {
+  public net.minecraft.core.RegistrySetBuilder();
+  public <T> net.minecraft.core.RegistrySetBuilder add(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, net.minecraft.core.registries.SingleRegistryBootstrap<T>);
+  public net.minecraft.core.RegistrySetBuilder add(net.minecraft.core.registries.MultiRegistryBootstrap);
+  public net.minecraft.core.HolderLookup$Provider build(net.minecraft.core.HolderLookup$Provider);
+  public net.minecraft.core.RegistrySetBuilder$PatchedRegistries buildPatch(net.minecraft.core.HolderLookup$Provider, net.minecraft.core.HolderLookup$Provider, net.minecraft.core.Cloner$Factory);
+}
+Compiled from "RegistrySetBuilder.java"
+final class net.minecraft.core.RegistrySetBuilder$BootstrappedRegistryState<T> extends java.lang.Record {
+  public static <T> net.minecraft.core.RegistrySetBuilder$BootstrappedRegistryState<T> create(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, com.mojang.serialization.Lifecycle);
+  public net.minecraft.data.worldgen.BootstrapContext<T> createBootstrapContext(net.minecraft.core.RegistrySetBuilder$BuildState);
+  public void bindHolders();
+  public void freeze();
+  public void errorOnMissingHolders(net.minecraft.core.RegistrySetBuilder$BuildState);
+  public void validatePatchHolders(net.minecraft.core.RegistrySetBuilder$BuildState, net.minecraft.core.HolderLookup$Provider);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.core.registries.BootstrapRegistry<T> registry();
+  public java.util.Map<net.minecraft.resources.ResourceKey<T>, T> registeredValues();
+}
+Compiled from "RegistrySetBuilder.java"
+final class net.minecraft.core.RegistrySetBuilder$BuildState extends java.lang.Record {
+  public static net.minecraft.core.RegistrySetBuilder$BuildState createAndApply(net.minecraft.core.HolderLookup$Provider, java.util.List<net.minecraft.core.RegistrySetBuilder$RegistryStub>);
+  public void throwOnError();
+  public <T> net.minecraft.data.worldgen.BootstrapContext<T> createBootstrap(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.core.HolderLookup$Provider contextRegistries();
+  public net.minecraft.core.HolderLookup$Provider allRegistries();
+  public java.util.Map<net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>, net.minecraft.core.RegistrySetBuilder$BootstrappedRegistryState<?>> bootstrappedRegistries();
+  public java.util.List<java.lang.RuntimeException> errors();
+}
+Compiled from "RegistrySetBuilder.java"
+public final class net.minecraft.core.RegistrySetBuilder$PatchedRegistries extends java.lang.Record {
+  public net.minecraft.core.RegistrySetBuilder$PatchedRegistries(net.minecraft.core.HolderLookup$Provider, net.minecraft.core.HolderLookup$Provider);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.core.HolderLookup$Provider full();
+  public net.minecraft.core.HolderLookup$Provider patches();
+}
+Compiled from "RegistrySetBuilder.java"
+interface net.minecraft.core.RegistrySetBuilder$RegistryStub {
+  public abstract java.util.stream.Stream<net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>> requiredRegistries();
+  public abstract void apply(net.minecraft.core.RegistrySetBuilder$BuildState);
+}
+Compiled from "RegistrySynchronization.java"
+public class net.minecraft.core.RegistrySynchronization {
+  public net.minecraft.core.RegistrySynchronization();
+  public static void packRegistries(com.mojang.serialization.DynamicOps<net.minecraft.nbt.Tag>, net.minecraft.core.RegistryAccess, java.util.Set<net.minecraft.server.packs.repository.KnownPack>, java.util.function.BiConsumer<net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>, java.util.List<net.minecraft.core.RegistrySynchronization$PackedRegistryEntry>>);
+  public static java.util.stream.Stream<net.minecraft.core.RegistryAccess$RegistryEntry<?>> networkedRegistries(net.minecraft.core.LayeredRegistryAccess<net.minecraft.server.RegistryLayer>);
+  public static java.util.stream.Stream<net.minecraft.core.RegistryAccess$RegistryEntry<?>> networkSafeRegistries(net.minecraft.core.LayeredRegistryAccess<net.minecraft.server.RegistryLayer>);
+  public static boolean isNetworkable(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>);
+}
+Compiled from "RegistrySynchronization.java"
+public final class net.minecraft.core.RegistrySynchronization$PackedRegistryEntry extends java.lang.Record {
+  public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.core.RegistrySynchronization$PackedRegistryEntry> STREAM_CODEC;
+  public net.minecraft.core.RegistrySynchronization$PackedRegistryEntry(net.minecraft.resources.Identifier, java.util.Optional<net.minecraft.nbt.Tag>);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.resources.Identifier id();
+  public java.util.Optional<net.minecraft.nbt.Tag> data();
+}

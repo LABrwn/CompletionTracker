@@ -1,0 +1,16 @@
+Compiled from "ClientAdvancements.java"
+public class net.minecraft.client.multiplayer.ClientAdvancements {
+  public net.minecraft.client.multiplayer.ClientAdvancements(net.minecraft.client.Minecraft, net.minecraft.client.telemetry.WorldSessionTelemetryManager);
+  public void update(net.minecraft.network.protocol.game.ClientboundUpdateAdvancementsPacket);
+  public java.util.Map<net.minecraft.advancements.AdvancementHolder, net.minecraft.advancements.AdvancementProgress> progress();
+  public net.minecraft.advancements.AdvancementTree tree();
+  public void setSelectedTab(net.minecraft.advancements.AdvancementHolder, boolean);
+  public void setListener(net.minecraft.client.multiplayer.ClientAdvancements$Listener);
+  public net.minecraft.advancements.AdvancementHolder get(net.minecraft.resources.Identifier);
+}
+Compiled from "ClientAdvancements.java"
+public interface net.minecraft.client.multiplayer.ClientAdvancements$Listener {
+  public abstract void onAdvancementsUpdated();
+  public abstract void onAdvancementsCleared();
+  public abstract void onSelectedTabChanged(net.minecraft.advancements.AdvancementHolder);
+}

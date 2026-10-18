@@ -1,0 +1,1562 @@
+Compiled from "Blaze.java"
+public class net.minecraft.world.entity.monster.Blaze extends net.minecraft.world.entity.monster.Monster {
+  public net.minecraft.world.entity.monster.Blaze(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Blaze>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public float getLightLevelDependentMagicValue();
+  public void aiStep();
+  public boolean isSensitiveToWater();
+  public boolean isOnFire();
+}
+Compiled from "Blaze.java"
+class net.minecraft.world.entity.monster.Blaze$BlazeAttackGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.Blaze$BlazeAttackGoal(net.minecraft.world.entity.monster.Blaze);
+  public boolean canUse();
+  public void start();
+  public void stop();
+  public boolean requiresUpdateEveryTick();
+  public void tick();
+}
+Compiled from "Creeper.java"
+public class net.minecraft.world.entity.monster.Creeper extends net.minecraft.world.entity.monster.Monster {
+  public net.minecraft.world.entity.monster.Creeper(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Creeper>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public int getMaxFallDistance();
+  public boolean causeFallDamage(double, float, net.minecraft.world.damagesource.DamageSource);
+  public void tick();
+  public void setTarget(net.minecraft.world.entity.LivingEntity);
+  public boolean killedEntity(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.LivingEntity, net.minecraft.world.damagesource.DamageSource);
+  public boolean doHurtTarget(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.Entity);
+  public boolean isPowered();
+  public float getSwelling(float);
+  public int getSwellDir();
+  public void setSwellDir(int);
+  public void thunderHit(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.LightningBolt);
+  public boolean isIgnited();
+  public void ignite();
+}
+Compiled from "CrossbowAttackMob.java"
+public interface net.minecraft.world.entity.monster.CrossbowAttackMob extends net.minecraft.world.entity.monster.RangedAttackMob {
+  public abstract void setChargingCrossbow(boolean);
+  public abstract net.minecraft.world.entity.LivingEntity getTarget();
+  public abstract void onCrossbowAttackPerformed();
+  public default void performCrossbowAttack(net.minecraft.world.entity.LivingEntity, float);
+}
+Compiled from "ElderGuardian.java"
+public class net.minecraft.world.entity.monster.ElderGuardian extends net.minecraft.world.entity.monster.Guardian {
+  public static final float ELDER_SIZE_SCALE;
+  public net.minecraft.world.entity.monster.ElderGuardian(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.ElderGuardian>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public int getAttackDuration();
+}
+Compiled from "Enderman.java"
+public class net.minecraft.world.entity.monster.Enderman extends net.minecraft.world.entity.monster.Monster implements net.minecraft.world.entity.NeutralMob {
+  public static final int MAX_TELEPORT_RADIUS;
+  public static final int MAX_TELEPORT_DIAMETER;
+  public net.minecraft.world.entity.monster.Enderman(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Enderman>, net.minecraft.world.level.Level);
+  public float getWalkTargetValue(net.minecraft.core.BlockPos, net.minecraft.world.level.LevelReader);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public void setTarget(net.minecraft.world.entity.LivingEntity);
+  public void startPersistentAngerTimer();
+  public void setPersistentAngerEndTime(long);
+  public long getPersistentAngerEndTime();
+  public void setPersistentAngerTarget(net.minecraft.world.entity.EntityReference<net.minecraft.world.entity.LivingEntity>);
+  public net.minecraft.world.entity.EntityReference<net.minecraft.world.entity.LivingEntity> getPersistentAngerTarget();
+  public void playStareSound();
+  public void onSyncedDataUpdated(net.minecraft.network.syncher.EntityDataAccessor<?>);
+  public void aiStep();
+  public boolean isSensitiveToWater();
+  public boolean teleport(double, double, double);
+  public boolean canRandomlyTeleportTo(double, double, double);
+  public void setCarriedBlock(net.minecraft.world.level.block.state.BlockState);
+  public net.minecraft.world.level.block.state.BlockState getCarriedBlock();
+  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
+  public boolean projectileReceivesSideEffectsOnHit(boolean);
+  public boolean isCreepy();
+  public boolean hasBeenStaredAt();
+  public void setBeingStaredAt();
+  public boolean requiresCustomPersistence();
+}
+Compiled from "Enderman.java"
+class net.minecraft.world.entity.monster.Enderman$EndermanFreezeWhenLookedAt extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.Enderman$EndermanFreezeWhenLookedAt(net.minecraft.world.entity.monster.Enderman);
+  public boolean canUse();
+  public void start();
+  public void tick();
+}
+Compiled from "Enderman.java"
+class net.minecraft.world.entity.monster.Enderman$EndermanLeaveBlockGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.Enderman$EndermanLeaveBlockGoal(net.minecraft.world.entity.monster.Enderman);
+  public boolean canUse();
+  public void tick();
+}
+Compiled from "Enderman.java"
+class net.minecraft.world.entity.monster.Enderman$EndermanLookForPlayerGoal extends net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal<net.minecraft.world.entity.player.Player> {
+  public net.minecraft.world.entity.monster.Enderman$EndermanLookForPlayerGoal(net.minecraft.world.entity.monster.Enderman, net.minecraft.world.entity.ai.targeting.TargetingConditions$Selector);
+  public boolean canUse();
+  public void start();
+  public void stop();
+  public boolean canContinueToUse();
+  public void tick();
+}
+Compiled from "Enderman.java"
+class net.minecraft.world.entity.monster.Enderman$EndermanTakeBlockGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.Enderman$EndermanTakeBlockGoal(net.minecraft.world.entity.monster.Enderman);
+  public boolean canUse();
+  public void tick();
+}
+Compiled from "Endermite.java"
+public class net.minecraft.world.entity.monster.Endermite extends net.minecraft.world.entity.monster.Monster {
+  public net.minecraft.world.entity.monster.Endermite(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Endermite>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public void tick();
+  public void setYBodyRot(float);
+  public void aiStep();
+  public static boolean checkEndermiteSpawnRules(net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.Endermite>, net.minecraft.world.level.LevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+}
+Compiled from "Enemy.java"
+public interface net.minecraft.world.entity.monster.Enemy {
+  public static final int XP_REWARD_NONE;
+  public static final int XP_REWARD_SMALL;
+  public static final int XP_REWARD_MEDIUM;
+  public static final int XP_REWARD_LARGE;
+  public static final int XP_REWARD_HUGE;
+  public static final int XP_REWARD_BOSS;
+}
+Compiled from "Ghast.java"
+public class net.minecraft.world.entity.monster.Ghast extends net.minecraft.world.entity.Mob implements net.minecraft.world.entity.monster.Enemy {
+  public net.minecraft.world.entity.monster.Ghast(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Ghast>, net.minecraft.world.level.Level);
+  public boolean isCharging();
+  public void setCharging(boolean);
+  public int getExplosionPower();
+  public boolean isInvulnerableTo(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource);
+  public boolean onClimbable();
+  public void travel(net.minecraft.world.phys.Vec3);
+  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public net.minecraft.sounds.SoundSource getSoundSource();
+  public static boolean checkGhastSpawnRules(net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.Ghast>, net.minecraft.world.level.LevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+  public int getMaxSpawnClusterSize();
+  public boolean supportQuadLeashAsHolder();
+  public double leashElasticDistance();
+  public double leashSnapDistance();
+  public static void faceMovementDirection(net.minecraft.world.entity.Mob);
+}
+Compiled from "Ghast.java"
+public class net.minecraft.world.entity.monster.Ghast$GhastLookGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.Ghast$GhastLookGoal(net.minecraft.world.entity.Mob);
+  public boolean canUse();
+  public boolean requiresUpdateEveryTick();
+  public void tick();
+}
+Compiled from "Ghast.java"
+public class net.minecraft.world.entity.monster.Ghast$GhastMoveControl<T extends net.minecraft.world.entity.Mob> extends net.minecraft.world.entity.ai.control.MoveControl<T> {
+  public net.minecraft.world.entity.monster.Ghast$GhastMoveControl(T, boolean, java.util.function.BooleanSupplier);
+  public void tick();
+}
+Compiled from "Ghast.java"
+class net.minecraft.world.entity.monster.Ghast$GhastShootFireballGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public int chargeTime;
+  public net.minecraft.world.entity.monster.Ghast$GhastShootFireballGoal(net.minecraft.world.entity.monster.Ghast);
+  public boolean canUse();
+  public void start();
+  public void stop();
+  public boolean requiresUpdateEveryTick();
+  public void tick();
+}
+Compiled from "Ghast.java"
+public class net.minecraft.world.entity.monster.Ghast$RandomFloatAroundGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.Ghast$RandomFloatAroundGoal(net.minecraft.world.entity.Mob);
+  public net.minecraft.world.entity.monster.Ghast$RandomFloatAroundGoal(net.minecraft.world.entity.Mob, int);
+  public boolean canUse();
+  public boolean canContinueToUse();
+  public void start();
+  public static net.minecraft.world.phys.Vec3 getSuitableFlyToPosition(net.minecraft.world.entity.Mob, int);
+}
+Compiled from "Giant.java"
+public class net.minecraft.world.entity.monster.Giant extends net.minecraft.world.entity.monster.Monster {
+  public net.minecraft.world.entity.monster.Giant(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Giant>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public float getWalkTargetValue(net.minecraft.core.BlockPos, net.minecraft.world.level.LevelReader);
+}
+Compiled from "Guardian.java"
+public class net.minecraft.world.entity.monster.Guardian extends net.minecraft.world.entity.monster.Monster {
+  public net.minecraft.world.entity.monster.Guardian(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Guardian>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public boolean isMoving();
+  public void setMoving(boolean);
+  public int getAttackDuration();
+  public boolean hasActiveAttackTarget();
+  public net.minecraft.world.entity.LivingEntity getActiveAttackTarget();
+  public void onSyncedDataUpdated(net.minecraft.network.syncher.EntityDataAccessor<?>);
+  public int getAmbientSoundInterval();
+  public float getWalkTargetValue(net.minecraft.core.BlockPos, net.minecraft.world.level.LevelReader);
+  public void aiStep();
+  public float getTailAnimation(float);
+  public float getSpikesAnimation(float);
+  public float getAttackAnimationScale(float);
+  public float getClientSideAttackTime();
+  public boolean checkSpawnObstruction(net.minecraft.world.level.LevelReader);
+  public static boolean checkGuardianSpawnRules(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Guardian>, net.minecraft.world.level.LevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
+  public int getMaxHeadXRot();
+}
+Compiled from "Guardian.java"
+class net.minecraft.world.entity.monster.Guardian$GuardianAttackGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.Guardian$GuardianAttackGoal(net.minecraft.world.entity.monster.Guardian);
+  public boolean canUse();
+  public boolean canContinueToUse();
+  public void start();
+  public void stop();
+  public boolean requiresUpdateEveryTick();
+  public void tick();
+}
+Compiled from "Guardian.java"
+class net.minecraft.world.entity.monster.Guardian$GuardianAttackSelector implements net.minecraft.world.entity.ai.targeting.TargetingConditions$Selector {
+  public net.minecraft.world.entity.monster.Guardian$GuardianAttackSelector(net.minecraft.world.entity.monster.Guardian);
+  public boolean test(net.minecraft.world.entity.LivingEntity, net.minecraft.server.level.ServerLevel);
+}
+Compiled from "Guardian.java"
+class net.minecraft.world.entity.monster.Guardian$GuardianMoveControl<T extends net.minecraft.world.entity.monster.Guardian> extends net.minecraft.world.entity.ai.control.MoveControl<T> {
+  public net.minecraft.world.entity.monster.Guardian$GuardianMoveControl(T);
+  public void tick();
+}
+Compiled from "Monster.java"
+public abstract class net.minecraft.world.entity.monster.Monster extends net.minecraft.world.entity.PathfinderMob implements net.minecraft.world.entity.monster.Enemy {
+  public net.minecraft.sounds.SoundSource getSoundSource();
+  public void aiStep();
+  public net.minecraft.world.entity.LivingEntity$Fallsounds getFallSounds();
+  public float getWalkTargetValue(net.minecraft.core.BlockPos, net.minecraft.world.level.LevelReader);
+  public static boolean isDarkEnoughToSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+  public static boolean checkMonsterSpawnRules(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.Mob>, net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+  public static boolean checkAnyLightMonsterSpawnRules(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Monster>, net.minecraft.world.level.LevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+  public static boolean checkSurfaceMonstersSpawnRules(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.Mob>, net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createMonsterAttributes();
+  public boolean shouldDropExperience();
+  public boolean isPreventingPlayerRest(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.player.Player);
+  public net.minecraft.world.item.ItemStack getProjectile(net.minecraft.world.item.ItemStack);
+}
+Compiled from "PatrollingMonster.java"
+public abstract class net.minecraft.world.entity.monster.PatrollingMonster extends net.minecraft.world.entity.monster.Monster {
+  public boolean canBeLeader();
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public static boolean checkPatrollingMonsterSpawnRules(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.PatrollingMonster>, net.minecraft.world.level.LevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+  public boolean removeWhenFarAway(double);
+  public void setPatrolTarget(net.minecraft.core.BlockPos);
+  public net.minecraft.core.BlockPos getPatrolTarget();
+  public boolean hasPatrolTarget();
+  public void setPatrolLeader(boolean);
+  public boolean isPatrolLeader();
+  public boolean canJoinPatrol();
+  public void findPatrolTarget();
+}
+Compiled from "PatrollingMonster.java"
+public class net.minecraft.world.entity.monster.PatrollingMonster$LongDistancePatrolGoal<T extends net.minecraft.world.entity.monster.PatrollingMonster> extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.PatrollingMonster$LongDistancePatrolGoal(T, double, double);
+  public boolean canUse();
+  public void start();
+  public void stop();
+  public void tick();
+}
+Compiled from "Phantom.java"
+public class net.minecraft.world.entity.monster.Phantom extends net.minecraft.world.entity.Mob implements net.minecraft.world.entity.monster.Enemy {
+  public static final float FLAP_DEGREES_PER_TICK;
+  public static final int TICKS_PER_FLAP;
+  public net.minecraft.world.entity.monster.Phantom(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Phantom>, net.minecraft.world.level.Level);
+  public boolean isFlapping();
+  public void setPhantomSize(int);
+  public int getPhantomSize();
+  public void onSyncedDataUpdated(net.minecraft.network.syncher.EntityDataAccessor<?>);
+  public int getUniqueFlapTickOffset();
+  public void tick();
+  public boolean onClimbable();
+  public void travel(net.minecraft.world.phys.Vec3);
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public boolean shouldRenderAtSqrDistance(double);
+  public net.minecraft.sounds.SoundSource getSoundSource();
+  public net.minecraft.world.entity.EntityDimensions getDefaultDimensions(net.minecraft.world.entity.Pose);
+}
+Compiled from "Phantom.java"
+final class net.minecraft.world.entity.monster.Phantom$AttackPhase extends java.lang.Enum<net.minecraft.world.entity.monster.Phantom$AttackPhase> {
+  public static final net.minecraft.world.entity.monster.Phantom$AttackPhase CIRCLE;
+  public static final net.minecraft.world.entity.monster.Phantom$AttackPhase SWOOP;
+  public static net.minecraft.world.entity.monster.Phantom$AttackPhase[] values();
+  public static net.minecraft.world.entity.monster.Phantom$AttackPhase valueOf(java.lang.String);
+}
+Compiled from "Phantom.java"
+class net.minecraft.world.entity.monster.Phantom$PhantomAttackPlayerTargetGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public boolean canUse();
+  public boolean canContinueToUse();
+}
+Compiled from "Phantom.java"
+class net.minecraft.world.entity.monster.Phantom$PhantomAttackStrategyGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public boolean canUse();
+  public void start();
+  public void stop();
+  public void tick();
+}
+Compiled from "Phantom.java"
+class net.minecraft.world.entity.monster.Phantom$PhantomBodyRotationControl extends net.minecraft.world.entity.ai.control.BodyRotationControl {
+  public net.minecraft.world.entity.monster.Phantom$PhantomBodyRotationControl(net.minecraft.world.entity.monster.Phantom, net.minecraft.world.entity.Mob);
+  public void clientTick();
+}
+Compiled from "Phantom.java"
+class net.minecraft.world.entity.monster.Phantom$PhantomCircleAroundAnchorGoal extends net.minecraft.world.entity.monster.Phantom$PhantomMoveTargetGoal {
+  public boolean canUse();
+  public void start();
+  public void tick();
+}
+Compiled from "Phantom.java"
+class net.minecraft.world.entity.monster.Phantom$PhantomLookControl extends net.minecraft.world.entity.ai.control.LookControl {
+  public net.minecraft.world.entity.monster.Phantom$PhantomLookControl(net.minecraft.world.entity.Mob);
+  public void tick();
+}
+Compiled from "Phantom.java"
+class net.minecraft.world.entity.monster.Phantom$PhantomMoveControl<T extends net.minecraft.world.entity.Mob> extends net.minecraft.world.entity.ai.control.MoveControl<T> {
+  public net.minecraft.world.entity.monster.Phantom$PhantomMoveControl(T);
+  public void tick();
+}
+Compiled from "Phantom.java"
+abstract class net.minecraft.world.entity.monster.Phantom$PhantomMoveTargetGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.Phantom$PhantomMoveTargetGoal(net.minecraft.world.entity.monster.Phantom);
+}
+Compiled from "Phantom.java"
+class net.minecraft.world.entity.monster.Phantom$PhantomSweepAttackGoal extends net.minecraft.world.entity.monster.Phantom$PhantomMoveTargetGoal {
+  public boolean canUse();
+  public boolean canContinueToUse();
+  public void stop();
+  public void tick();
+}
+Compiled from "RangedAttackMob.java"
+public interface net.minecraft.world.entity.monster.RangedAttackMob {
+  public abstract void performRangedAttack(net.minecraft.world.entity.LivingEntity, float);
+  public default float rangedAttackUncertainty(net.minecraft.world.level.Level);
+}
+Compiled from "Ravager.java"
+public class net.minecraft.world.entity.monster.Ravager extends net.minecraft.world.entity.raid.Raider {
+  public static final int ATTACK_DURATION;
+  public static final int STUN_DURATION;
+  public net.minecraft.world.entity.monster.Ravager(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Ravager>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public net.minecraft.sounds.SoundEvent getCelebrateSound();
+  public int getMaxHeadYRot();
+  public void aiStep();
+  public boolean hasLineOfSight(net.minecraft.world.entity.Entity);
+  public void handleEntityEvent(byte);
+  public int getAttackTick();
+  public int getStunnedTick();
+  public int getRoarTick();
+  public boolean doHurtTarget(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.Entity);
+  public boolean checkSpawnObstruction(net.minecraft.world.level.LevelReader);
+  public void applyRaidBuffs(net.minecraft.server.level.ServerLevel, int, boolean);
+  public boolean canBeLeader();
+}
+Compiled from "Shulker.java"
+public class net.minecraft.world.entity.monster.Shulker extends net.minecraft.world.entity.animal.golem.AbstractGolem implements net.minecraft.world.entity.monster.Enemy {
+  public static final int MAX_TELEPORT_DISTANCE;
+  public net.minecraft.world.entity.monster.Shulker(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Shulker>, net.minecraft.world.level.Level);
+  public net.minecraft.sounds.SoundSource getSoundSource();
+  public void playAmbientSound();
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public void tick();
+  public net.minecraft.world.entity.EntityDimensions getDefaultDimensions(net.minecraft.world.entity.Pose);
+  public static net.minecraft.world.phys.AABB getProgressAabb(float, net.minecraft.core.Direction, float, net.minecraft.world.phys.Vec3);
+  public static net.minecraft.world.phys.AABB getProgressDeltaAabb(float, net.minecraft.core.Direction, float, float, net.minecraft.world.phys.Vec3);
+  public boolean startRiding(net.minecraft.world.entity.Entity, boolean, boolean);
+  public void stopRiding();
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public void move(net.minecraft.world.entity.MoverType, net.minecraft.world.phys.Vec3);
+  public net.minecraft.world.phys.Vec3 getDeltaMovement();
+  public void setDeltaMovement(net.minecraft.world.phys.Vec3);
+  public void setPos(double, double, double);
+  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
+  public boolean canBeCollidedWith(net.minecraft.world.entity.Entity);
+  public net.minecraft.core.Direction getAttachFace();
+  public void onSyncedDataUpdated(net.minecraft.network.syncher.EntityDataAccessor<?>);
+  public float getClientPeekAmount(float);
+  public void recreateFromPacket(net.minecraft.network.protocol.game.ClientboundAddEntityPacket);
+  public int getMaxHeadXRot();
+  public int getMaxHeadYRot();
+  public void push(net.minecraft.world.entity.Entity);
+  public net.minecraft.world.phys.Vec3 getRenderPosition(float);
+  public java.util.Optional<net.minecraft.world.item.DyeColor> getVariant();
+  public net.minecraft.world.item.DyeColor getColor();
+  public <T> T get(net.minecraft.core.component.DataComponentType<? extends T>);
+}
+Compiled from "Shulker.java"
+class net.minecraft.world.entity.monster.Shulker$ShulkerAttackGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.Shulker$ShulkerAttackGoal(net.minecraft.world.entity.monster.Shulker);
+  public boolean canUse();
+  public void start();
+  public void stop();
+  public boolean requiresUpdateEveryTick();
+  public void tick();
+}
+Compiled from "Shulker.java"
+class net.minecraft.world.entity.monster.Shulker$ShulkerBodyRotationControl extends net.minecraft.world.entity.ai.control.BodyRotationControl {
+  public net.minecraft.world.entity.monster.Shulker$ShulkerBodyRotationControl(net.minecraft.world.entity.Mob);
+  public void clientTick();
+}
+Compiled from "Shulker.java"
+class net.minecraft.world.entity.monster.Shulker$ShulkerDefenseAttackGoal extends net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal<net.minecraft.world.entity.LivingEntity> {
+  public net.minecraft.world.entity.monster.Shulker$ShulkerDefenseAttackGoal(net.minecraft.world.entity.monster.Shulker);
+  public boolean canUse();
+}
+Compiled from "Shulker.java"
+class net.minecraft.world.entity.monster.Shulker$ShulkerLookControl extends net.minecraft.world.entity.ai.control.LookControl {
+  public net.minecraft.world.entity.monster.Shulker$ShulkerLookControl(net.minecraft.world.entity.monster.Shulker, net.minecraft.world.entity.Mob);
+}
+Compiled from "Shulker.java"
+class net.minecraft.world.entity.monster.Shulker$ShulkerNearestAttackGoal extends net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal<net.minecraft.world.entity.player.Player> {
+  public net.minecraft.world.entity.monster.Shulker$ShulkerNearestAttackGoal(net.minecraft.world.entity.monster.Shulker, net.minecraft.world.entity.monster.Shulker);
+  public boolean canUse();
+}
+Compiled from "Shulker.java"
+class net.minecraft.world.entity.monster.Shulker$ShulkerPeekGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public boolean canUse();
+  public boolean canContinueToUse();
+  public void start();
+  public void stop();
+  public void tick();
+}
+Compiled from "Silverfish.java"
+public class net.minecraft.world.entity.monster.Silverfish extends net.minecraft.world.entity.monster.Monster {
+  public net.minecraft.world.entity.monster.Silverfish(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Silverfish>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
+  public void tick();
+  public void setYBodyRot(float);
+  public float getWalkTargetValue(net.minecraft.core.BlockPos, net.minecraft.world.level.LevelReader);
+  public static boolean checkSilverfishSpawnRules(net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.Silverfish>, net.minecraft.world.level.LevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+}
+Compiled from "Silverfish.java"
+class net.minecraft.world.entity.monster.Silverfish$SilverfishMergeWithStoneGoal extends net.minecraft.world.entity.ai.goal.RandomStrollGoal {
+  public net.minecraft.world.entity.monster.Silverfish$SilverfishMergeWithStoneGoal(net.minecraft.world.entity.monster.Silverfish);
+  public boolean canUse();
+  public boolean canContinueToUse();
+  public void start();
+}
+Compiled from "Silverfish.java"
+class net.minecraft.world.entity.monster.Silverfish$SilverfishWakeUpFriendsGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.Silverfish$SilverfishWakeUpFriendsGoal(net.minecraft.world.entity.monster.Silverfish);
+  public void notifyHurt();
+  public boolean canUse();
+  public void tick();
+}
+Compiled from "Strider.java"
+public class net.minecraft.world.entity.monster.Strider extends net.minecraft.world.entity.animal.Animal implements net.minecraft.world.entity.ItemSteerable {
+  public net.minecraft.world.entity.monster.Strider(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Strider>, net.minecraft.world.level.Level);
+  public static boolean checkStriderSpawnRules(net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.Strider>, net.minecraft.world.level.LevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+  public void onSyncedDataUpdated(net.minecraft.network.syncher.EntityDataAccessor<?>);
+  public boolean canUseSlot(net.minecraft.world.entity.EquipmentSlot);
+  public void setSuffocating(boolean);
+  public boolean isSuffocating();
+  public boolean canStandOnFluid(net.minecraft.world.level.material.FluidState);
+  public net.minecraft.world.entity.EntityDimensions getDefaultDimensions(net.minecraft.world.entity.Pose);
+  public boolean checkSpawnObstruction(net.minecraft.world.level.LevelReader);
+  public net.minecraft.world.entity.LivingEntity getControllingPassenger();
+  public net.minecraft.world.phys.Vec3 getDismountLocationForPassenger(net.minecraft.world.entity.LivingEntity);
+  public boolean boost();
+  public void tick();
+  public net.minecraft.world.phys.shapes.VoxelShape getLiquidCollisionShape();
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public boolean isSensitiveToWater();
+  public boolean isOnFire();
+  public float getWalkTargetValue(net.minecraft.core.BlockPos, net.minecraft.world.level.LevelReader);
+  public net.minecraft.world.entity.monster.Strider getBreedOffspring(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.AgeableMob);
+  public boolean isFood(net.minecraft.world.item.ItemStack);
+  public net.minecraft.world.InteractionResult mobInteract(net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand);
+  public net.minecraft.world.phys.Vec3 getLeashOffset();
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public net.minecraft.world.entity.AgeableMob getBreedOffspring(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.AgeableMob);
+}
+Compiled from "Strider.java"
+class net.minecraft.world.entity.monster.Strider$StriderGoToLavaGoal extends net.minecraft.world.entity.ai.goal.MoveToBlockGoal {
+  public net.minecraft.core.BlockPos getMoveToTarget();
+  public boolean canContinueToUse();
+  public boolean canUse();
+  public boolean shouldRecalculatePath();
+}
+Compiled from "Strider.java"
+class net.minecraft.world.entity.monster.Strider$StriderPathNavigation extends net.minecraft.world.entity.ai.navigation.GroundPathNavigation {
+  public net.minecraft.world.entity.monster.Strider$StriderPathNavigation(net.minecraft.world.entity.monster.Strider, net.minecraft.world.level.Level);
+  public boolean isStableDestination(net.minecraft.core.BlockPos);
+}
+Compiled from "Vex.java"
+public class net.minecraft.world.entity.monster.Vex extends net.minecraft.world.entity.monster.Monster implements net.minecraft.world.entity.TraceableEntity,net.minecraft.world.entity.OwnableEntity {
+  public static final float FLAP_DEGREES_PER_TICK;
+  public static final int TICKS_PER_FLAP;
+  public net.minecraft.world.entity.monster.Vex(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Vex>, net.minecraft.world.level.Level);
+  public boolean isFlapping();
+  public void tick();
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public void restoreFrom(net.minecraft.world.entity.Entity);
+  public net.minecraft.world.entity.LivingEntity getOwner();
+  public net.minecraft.world.entity.EntityReference<net.minecraft.world.entity.LivingEntity> getOwnerReference();
+  public net.minecraft.core.BlockPos getBoundOrigin();
+  public void setBoundOrigin(net.minecraft.core.BlockPos);
+  public boolean isCharging();
+  public void setIsCharging(boolean);
+  public void setOwner(net.minecraft.world.entity.Mob);
+  public void setLimitedLife(int);
+  public float getLightLevelDependentMagicValue();
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public net.minecraft.world.entity.Entity getOwner();
+}
+Compiled from "Vex.java"
+class net.minecraft.world.entity.monster.Vex$VexChargeAttackGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.Vex$VexChargeAttackGoal(net.minecraft.world.entity.monster.Vex);
+  public boolean canUse();
+  public boolean canContinueToUse();
+  public void start();
+  public void stop();
+  public boolean requiresUpdateEveryTick();
+  public void tick();
+}
+Compiled from "Vex.java"
+class net.minecraft.world.entity.monster.Vex$VexCopyOwnerTargetGoal extends net.minecraft.world.entity.ai.goal.target.TargetGoal {
+  public net.minecraft.world.entity.monster.Vex$VexCopyOwnerTargetGoal(net.minecraft.world.entity.monster.Vex, net.minecraft.world.entity.PathfinderMob);
+  public boolean canUse();
+  public void start();
+}
+Compiled from "Vex.java"
+class net.minecraft.world.entity.monster.Vex$VexMoveControl<T extends net.minecraft.world.entity.Mob> extends net.minecraft.world.entity.ai.control.MoveControl<T> {
+  public net.minecraft.world.entity.monster.Vex$VexMoveControl(T);
+  public void tick();
+}
+Compiled from "Vex.java"
+class net.minecraft.world.entity.monster.Vex$VexRandomMoveGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.Vex$VexRandomMoveGoal(net.minecraft.world.entity.monster.Vex);
+  public boolean canUse();
+  public boolean canContinueToUse();
+  public void tick();
+}
+Compiled from "Witch.java"
+public class net.minecraft.world.entity.monster.Witch extends net.minecraft.world.entity.raid.Raider implements net.minecraft.world.entity.monster.RangedAttackMob {
+  public net.minecraft.world.entity.monster.Witch(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Witch>, net.minecraft.world.level.Level);
+  public void setUsingItem(boolean);
+  public boolean isDrinkingPotion();
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public void aiStep();
+  public net.minecraft.sounds.SoundEvent getCelebrateSound();
+  public void handleEntityEvent(byte);
+  public void performRangedAttack(net.minecraft.world.entity.LivingEntity, float);
+  public float rangedAttackUncertainty(net.minecraft.world.level.Level);
+  public void applyRaidBuffs(net.minecraft.server.level.ServerLevel, int, boolean);
+  public boolean canBeLeader();
+}
+Compiled from "Zoglin.java"
+public class net.minecraft.world.entity.monster.Zoglin extends net.minecraft.world.entity.monster.Monster implements net.minecraft.world.entity.monster.hoglin.HoglinBase {
+  public net.minecraft.world.entity.monster.Zoglin(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Zoglin>, net.minecraft.world.level.Level);
+  public net.minecraft.world.entity.EntityDimensions getDefaultDimensions(net.minecraft.world.entity.Pose);
+  public void onSyncedDataUpdated(net.minecraft.network.syncher.EntityDataAccessor<?>);
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public boolean isAdult();
+  public boolean doHurtTarget(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.Entity);
+  public boolean canBeLeashed();
+  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
+  public net.minecraft.world.entity.ai.Brain<net.minecraft.world.entity.monster.Zoglin> getBrain();
+  public void setBaby(boolean);
+  public boolean isBaby();
+  public void aiStep();
+  public void handleEntityEvent(byte);
+  public int getAttackAnimationRemainingTicks();
+  public net.minecraft.world.entity.LivingEntity getTarget();
+}
+Compiled from "Breeze.java"
+public class net.minecraft.world.entity.monster.breeze.Breeze extends net.minecraft.world.entity.monster.Monster {
+  public final net.minecraft.world.entity.AnimationState idle;
+  public final net.minecraft.world.entity.AnimationState slide;
+  public final net.minecraft.world.entity.AnimationState slideBack;
+  public final net.minecraft.world.entity.AnimationState longJump;
+  public final net.minecraft.world.entity.AnimationState shoot;
+  public final net.minecraft.world.entity.AnimationState inhale;
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public net.minecraft.world.entity.monster.breeze.Breeze(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Monster>, net.minecraft.world.level.Level);
+  public net.minecraft.world.entity.ai.Brain<net.minecraft.world.entity.monster.breeze.Breeze> getBrain();
+  public void onSyncedDataUpdated(net.minecraft.network.syncher.EntityDataAccessor<?>);
+  public void tick();
+  public net.minecraft.world.entity.monster.breeze.Breeze resetJumpTrail();
+  public void emitJumpTrailParticles();
+  public void emitGroundParticles(int);
+  public void playAmbientSound();
+  public void playWhirlSound();
+  public net.minecraft.world.entity.projectile.ProjectileDeflection deflection(net.minecraft.world.entity.projectile.Projectile);
+  public java.util.Optional<net.minecraft.world.entity.LivingEntity> getHurtBy();
+  public boolean withinInnerCircleRange(net.minecraft.world.phys.Vec3);
+  public boolean canAttack(net.minecraft.world.entity.LivingEntity);
+  public int getMaxHeadYRot();
+  public int getHeadRotSpeed();
+  public double getFiringYPosition();
+  public boolean isInvulnerableTo(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource);
+  public double getFluidJumpThreshold();
+  public boolean causeFallDamage(double, float, net.minecraft.world.damagesource.DamageSource);
+  public net.minecraft.world.entity.LivingEntity getTarget();
+  public void registerDebugValues(net.minecraft.server.level.ServerLevel, net.minecraft.util.debug.DebugValueSource$Registration);
+}
+Compiled from "BreezeAi.java"
+public class net.minecraft.world.entity.monster.breeze.BreezeAi {
+  public static final float SPEED_MULTIPLIER_WHEN_SLIDING;
+  public static final float JUMP_CIRCLE_INNER_RADIUS;
+  public static final float JUMP_CIRCLE_MIDDLE_RADIUS;
+  public static final float JUMP_CIRCLE_OUTER_RADIUS;
+  public net.minecraft.world.entity.monster.breeze.BreezeAi();
+  public static void updateActivity(net.minecraft.world.entity.monster.breeze.Breeze);
+}
+Compiled from "BreezeAi.java"
+public class net.minecraft.world.entity.monster.breeze.BreezeAi$SlideToTargetSink extends net.minecraft.world.entity.ai.behavior.MoveToTargetSink {
+  public net.minecraft.world.entity.monster.breeze.BreezeAi$SlideToTargetSink(int, int);
+}
+Compiled from "BreezeUtil.java"
+public class net.minecraft.world.entity.monster.breeze.BreezeUtil {
+  public net.minecraft.world.entity.monster.breeze.BreezeUtil();
+  public static net.minecraft.world.phys.Vec3 randomPointBehindTarget(net.minecraft.world.entity.LivingEntity, net.minecraft.util.RandomSource);
+  public static boolean hasLineOfSight(net.minecraft.world.entity.monster.breeze.Breeze, net.minecraft.world.phys.Vec3);
+}
+Compiled from "LongJump.java"
+public class net.minecraft.world.entity.monster.breeze.LongJump extends net.minecraft.world.entity.ai.behavior.Behavior<net.minecraft.world.entity.monster.breeze.Breeze> {
+  public net.minecraft.world.entity.monster.breeze.LongJump();
+  public static boolean canRun(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.monster.breeze.Breeze);
+}
+Compiled from "Shoot.java"
+public class net.minecraft.world.entity.monster.breeze.Shoot extends net.minecraft.world.entity.ai.behavior.Behavior<net.minecraft.world.entity.monster.breeze.Breeze> {
+  public net.minecraft.world.entity.monster.breeze.Shoot();
+}
+Compiled from "ShootWhenStuck.java"
+public class net.minecraft.world.entity.monster.breeze.ShootWhenStuck extends net.minecraft.world.entity.ai.behavior.Behavior<net.minecraft.world.entity.monster.breeze.Breeze> {
+  public net.minecraft.world.entity.monster.breeze.ShootWhenStuck();
+}
+Compiled from "Slide.java"
+public class net.minecraft.world.entity.monster.breeze.Slide extends net.minecraft.world.entity.ai.behavior.Behavior<net.minecraft.world.entity.monster.breeze.Breeze> {
+  public net.minecraft.world.entity.monster.breeze.Slide();
+}
+Compiled from "package-info.java"
+interface net.minecraft.world.entity.monster.breeze.package-info {
+}
+Compiled from "Creaking.java"
+public class net.minecraft.world.entity.monster.creaking.Creaking extends net.minecraft.world.entity.monster.Monster {
+  public static final int ATTACK_INTERVAL;
+  public static final float SPEED_MULTIPLIER_WHEN_IDLING;
+  public static final int CREAKING_ORANGE;
+  public static final int CREAKING_GRAY;
+  public static final int INVULNERABILITY_ANIMATION_DURATION;
+  public static final int TWITCH_DEATH_DURATION;
+  public final net.minecraft.world.entity.AnimationState attackAnimationState;
+  public final net.minecraft.world.entity.AnimationState invulnerabilityAnimationState;
+  public final net.minecraft.world.entity.AnimationState deathAnimationState;
+  public net.minecraft.world.entity.monster.creaking.Creaking(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.creaking.Creaking>, net.minecraft.world.level.Level);
+  public void setTransient(net.minecraft.core.BlockPos);
+  public boolean isHeartBound();
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public boolean canMove();
+  public boolean doHurtTarget(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.Entity);
+  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
+  public net.minecraft.world.entity.player.Player blameSourceForDamage(net.minecraft.world.damagesource.DamageSource);
+  public boolean isPushable();
+  public void push(double, double, double);
+  public net.minecraft.world.entity.ai.Brain<net.minecraft.world.entity.monster.creaking.Creaking> getBrain();
+  public void aiStep();
+  public void tick();
+  public void tearDown();
+  public void creakingDeathEffects(net.minecraft.world.damagesource.DamageSource);
+  public void handleEntityEvent(byte);
+  public boolean fireImmune();
+  public boolean canUsePortal(boolean);
+  public boolean playerIsStuckInYou();
+  public void setHomePos(net.minecraft.core.BlockPos);
+  public net.minecraft.core.BlockPos getHomePos();
+  public void setTearingDown();
+  public boolean isTearingDown();
+  public boolean hasGlowingEyes();
+  public void checkEyeBlink();
+  public void playAttackSound();
+  public net.minecraft.world.entity.LivingEntity getTarget();
+  public void knockback(double, double, double, net.minecraft.world.damagesource.DamageSource, float, boolean);
+  public boolean checkCanMove();
+  public void activate(net.minecraft.world.entity.player.Player);
+  public void deactivate();
+  public void setIsActive(boolean);
+  public boolean isActive();
+  public float getWalkTargetValue(net.minecraft.core.BlockPos, net.minecraft.world.level.LevelReader);
+}
+Compiled from "Creaking.java"
+class net.minecraft.world.entity.monster.creaking.Creaking$CreakingBodyRotationControl extends net.minecraft.world.entity.ai.control.BodyRotationControl {
+  public net.minecraft.world.entity.monster.creaking.Creaking$CreakingBodyRotationControl(net.minecraft.world.entity.monster.creaking.Creaking, net.minecraft.world.entity.monster.creaking.Creaking);
+  public void clientTick();
+}
+Compiled from "Creaking.java"
+class net.minecraft.world.entity.monster.creaking.Creaking$CreakingJumpControl extends net.minecraft.world.entity.ai.control.JumpControl {
+  public net.minecraft.world.entity.monster.creaking.Creaking$CreakingJumpControl(net.minecraft.world.entity.monster.creaking.Creaking, net.minecraft.world.entity.monster.creaking.Creaking);
+  public void tick();
+}
+Compiled from "Creaking.java"
+class net.minecraft.world.entity.monster.creaking.Creaking$CreakingLookControl extends net.minecraft.world.entity.ai.control.LookControl {
+  public net.minecraft.world.entity.monster.creaking.Creaking$CreakingLookControl(net.minecraft.world.entity.monster.creaking.Creaking, net.minecraft.world.entity.monster.creaking.Creaking);
+  public void tick();
+}
+Compiled from "Creaking.java"
+class net.minecraft.world.entity.monster.creaking.Creaking$CreakingMoveControl<T extends net.minecraft.world.entity.monster.creaking.Creaking> extends net.minecraft.world.entity.ai.control.MoveControl<T> {
+  public net.minecraft.world.entity.monster.creaking.Creaking$CreakingMoveControl(T);
+  public void tick();
+}
+Compiled from "Creaking.java"
+class net.minecraft.world.entity.monster.creaking.Creaking$CreakingPathNavigation extends net.minecraft.world.entity.ai.navigation.GroundPathNavigation {
+  public net.minecraft.world.entity.monster.creaking.Creaking$CreakingPathNavigation(net.minecraft.world.entity.monster.creaking.Creaking, net.minecraft.world.entity.monster.creaking.Creaking, net.minecraft.world.level.Level);
+  public void tick();
+}
+Compiled from "Creaking.java"
+class net.minecraft.world.entity.monster.creaking.Creaking$HomeNodeEvaluator extends net.minecraft.world.level.pathfinder.WalkNodeEvaluator {
+  public net.minecraft.world.level.pathfinder.PathType getPathType(net.minecraft.world.level.pathfinder.PathfindingContext, int, int, int);
+}
+Compiled from "CreakingAi.java"
+public class net.minecraft.world.entity.monster.creaking.CreakingAi {
+  public net.minecraft.world.entity.monster.creaking.CreakingAi();
+  public static void updateActivity(net.minecraft.world.entity.monster.creaking.Creaking);
+}
+Compiled from "package-info.java"
+interface net.minecraft.world.entity.monster.creaking.package-info {
+}
+Compiled from "AbstractCubeMob.java"
+public abstract class net.minecraft.world.entity.monster.cubemob.AbstractCubeMob extends net.minecraft.world.entity.AgeableMob {
+  public static final int MIN_SIZE;
+  public static final int MAX_SIZE;
+  public static final int MAX_NATURAL_SIZE;
+  public float targetSquish;
+  public float squish;
+  public float oSquish;
+  public void setSize(int, boolean);
+  public int getSize();
+  public boolean isTiny();
+  public void tick();
+  public void refreshDimensions();
+  public void onSyncedDataUpdated(net.minecraft.network.syncher.EntityDataAccessor<?>);
+  public net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.cubemob.AbstractCubeMob> getType();
+  public void remove(net.minecraft.world.entity.Entity$RemovalReason);
+  public void push(net.minecraft.world.entity.Entity);
+  public void playerTouch(net.minecraft.world.entity.player.Player);
+  public net.minecraft.world.entity.EntityDimensions getDefaultDimensions(net.minecraft.world.entity.Pose);
+  public void jumpFromGround();
+  public net.minecraft.sounds.SoundSource getSoundSource();
+  public int getMaxHeadXRot();
+  public float getSoundPitch();
+  public net.minecraft.world.entity.monster.cubemob.AbstractCubeMob getBreedOffspring(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.AgeableMob);
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public net.minecraft.world.entity.AgeableMob getBreedOffspring(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.AgeableMob);
+}
+Compiled from "AbstractCubeMob.java"
+public class net.minecraft.world.entity.monster.cubemob.AbstractCubeMob$CubeMobAttackGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.cubemob.AbstractCubeMob$CubeMobAttackGoal(net.minecraft.world.entity.monster.cubemob.AbstractCubeMob);
+  public boolean canUse();
+  public void start();
+  public boolean canContinueToUse();
+  public boolean requiresUpdateEveryTick();
+  public void tick();
+}
+Compiled from "AbstractCubeMob.java"
+class net.minecraft.world.entity.monster.cubemob.AbstractCubeMob$CubeMobFloatGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.cubemob.AbstractCubeMob$CubeMobFloatGoal(net.minecraft.world.entity.monster.cubemob.AbstractCubeMob);
+  public boolean canUse();
+  public boolean requiresUpdateEveryTick();
+  public void tick();
+}
+Compiled from "AbstractCubeMob.java"
+class net.minecraft.world.entity.monster.cubemob.AbstractCubeMob$CubeMobKeepOnJumpingGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.cubemob.AbstractCubeMob$CubeMobKeepOnJumpingGoal(net.minecraft.world.entity.monster.cubemob.AbstractCubeMob);
+  public boolean canUse();
+  public void tick();
+}
+Compiled from "AbstractCubeMob.java"
+public class net.minecraft.world.entity.monster.cubemob.AbstractCubeMob$CubeMobMoveControl<T extends net.minecraft.world.entity.monster.cubemob.AbstractCubeMob> extends net.minecraft.world.entity.ai.control.MoveControl<T> {
+  public net.minecraft.world.entity.monster.cubemob.AbstractCubeMob$CubeMobMoveControl(T);
+  public void setDirection(float, boolean);
+  public void setWantedMovement(double);
+  public void tick();
+}
+Compiled from "AbstractCubeMob.java"
+class net.minecraft.world.entity.monster.cubemob.AbstractCubeMob$CubeMobRandomDirectionGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.cubemob.AbstractCubeMob$CubeMobRandomDirectionGoal(net.minecraft.world.entity.monster.cubemob.AbstractCubeMob);
+  public boolean canUse();
+  public void tick();
+}
+Compiled from "MagmaCube.java"
+public class net.minecraft.world.entity.monster.cubemob.MagmaCube extends net.minecraft.world.entity.monster.cubemob.AbstractCubeMob implements net.minecraft.world.entity.monster.Enemy {
+  public net.minecraft.world.entity.monster.cubemob.MagmaCube(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.cubemob.MagmaCube>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public static boolean checkMagmaCubeSpawnRules(net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.cubemob.MagmaCube>, net.minecraft.world.level.LevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+  public void setSize(int, boolean);
+  public float getLightLevelDependentMagicValue();
+  public boolean isOnFire();
+  public void jumpFromGround();
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+}
+Compiled from "Slime.java"
+public class net.minecraft.world.entity.monster.cubemob.Slime extends net.minecraft.world.entity.monster.cubemob.AbstractCubeMob implements net.minecraft.world.entity.monster.Enemy {
+  public net.minecraft.world.entity.monster.cubemob.Slime(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.cubemob.Slime>, net.minecraft.world.level.Level);
+  public static boolean checkSlimeSpawnRules(net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.cubemob.Slime>, net.minecraft.world.level.LevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public void setSize(int, boolean);
+}
+Compiled from "SulfurCube.java"
+public class net.minecraft.world.entity.monster.cubemob.SulfurCube extends net.minecraft.world.entity.monster.cubemob.AbstractCubeMob implements net.minecraft.world.entity.Bucketable,net.minecraft.world.entity.Shearable {
+  public static final int SPLIT_COUNT;
+  public static final int MAX_SIZE;
+  public static final int MIN_SIZE;
+  public static final int PICKUP_TIMER_DURATION;
+  public static final double PUSH_DISTANCE_THRESHOLD;
+  public net.minecraft.world.entity.monster.cubemob.SulfurCube(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.cubemob.SulfurCube>, net.minecraft.world.level.Level);
+  public boolean fromBucket();
+  public int getFuse();
+  public boolean isPrimed();
+  public void onSyncedDataUpdated(net.minecraft.network.syncher.EntityDataAccessor<?>);
+  public void setFromBucket(boolean);
+  public net.minecraft.sounds.SoundEvent getPickupSound();
+  public void saveToBucketTag(net.minecraft.world.item.ItemStack);
+  public boolean canBreatheUnderwater();
+  public double getFluidJumpThreshold();
+  public void loadFromBucketTag(net.minecraft.nbt.CompoundTag);
+  public net.minecraft.world.item.ItemStack getBucketItemStack();
+  public float getLightLevelDependentMagicValue();
+  public static boolean checkSulfurCubeSpawnRules(net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.cubemob.SulfurCube>, net.minecraft.world.level.LevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+  public boolean requiresCustomPersistence();
+  public boolean canBeLeashed();
+  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
+  public boolean hasBodyItem();
+  public boolean canExplode();
+  public java.util.List<net.minecraft.world.entity.SulfurCubeArchetype> matchingArchetypes(net.minecraft.world.item.ItemStack);
+  public void tick();
+  public boolean primeTime(boolean);
+  public float maxUpStep();
+  public boolean canFreeze();
+  public boolean equipItem(net.minecraft.world.item.ItemStack);
+  public boolean canBePickedUpWithBucket(net.minecraft.world.item.ItemStack);
+  public net.minecraft.world.entity.EquipmentSlot getEquipmentSlotForItem(net.minecraft.world.item.ItemStack);
+  public boolean isEquippableInSlot(net.minecraft.world.item.ItemStack, net.minecraft.world.entity.EquipmentSlot);
+  public net.minecraft.sounds.SoundSource getSoundSource();
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createSulfurCubeAttributes();
+  public void shear(net.minecraft.server.level.ServerLevel, net.minecraft.sounds.SoundSource, net.minecraft.world.item.ItemStack);
+  public boolean readyForShearing();
+  public boolean canPickUpLoot();
+  public boolean canUseSlot(net.minecraft.world.entity.EquipmentSlot);
+  public boolean canHoldItem(net.minecraft.world.item.ItemStack);
+  public void setSize(int, boolean);
+  public net.minecraft.world.entity.monster.cubemob.AbstractCubeMob getBreedOffspring(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.AgeableMob);
+  public void playerTouch(net.minecraft.world.entity.player.Player);
+  public void knockback(double, double, double, net.minecraft.world.damagesource.DamageSource, float, boolean);
+  public <T> T get(net.minecraft.core.component.DataComponentType<? extends T>);
+  public net.minecraft.world.phys.Vec3 getLeashOffset();
+  public boolean isInvulnerableToPiercingWeapon();
+  public boolean canBePickedFromInside();
+  public net.minecraft.world.entity.AgeableMob getBreedOffspring(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.AgeableMob);
+}
+Compiled from "SulfurCube.java"
+class net.minecraft.world.entity.monster.cubemob.SulfurCube$SulfurCubeLookControl extends net.minecraft.world.entity.ai.control.LookControl {
+  public void tick();
+}
+Compiled from "SulfurCube.java"
+public class net.minecraft.world.entity.monster.cubemob.SulfurCube$SulfurCubeMobMoveControl<T extends net.minecraft.world.entity.monster.cubemob.SulfurCube> extends net.minecraft.world.entity.monster.cubemob.AbstractCubeMob$CubeMobMoveControl<T> {
+  public net.minecraft.world.entity.monster.cubemob.SulfurCube$SulfurCubeMobMoveControl(T);
+  public void tick();
+}
+Compiled from "SulfurCube.java"
+class net.minecraft.world.entity.monster.cubemob.SulfurCube$SulfurCubeSearchForItemsGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.cubemob.SulfurCube$SulfurCubeSearchForItemsGoal(net.minecraft.world.entity.monster.cubemob.SulfurCube, net.minecraft.world.entity.monster.cubemob.SulfurCube);
+  public boolean canUse();
+  public void tick();
+}
+Compiled from "SulfurCube.java"
+class net.minecraft.world.entity.monster.cubemob.SulfurCube$SulfurCubeTemptGoal extends net.minecraft.world.entity.ai.goal.TemptGoal$ForNonPathfinders {
+  public net.minecraft.world.entity.monster.cubemob.SulfurCube$SulfurCubeTemptGoal(net.minecraft.world.entity.Mob, double, java.util.function.Predicate<net.minecraft.world.item.ItemStack>, boolean, double);
+}
+Compiled from "package-info.java"
+interface net.minecraft.world.entity.monster.cubemob.package-info {
+}
+Compiled from "Hoglin.java"
+public class net.minecraft.world.entity.monster.hoglin.Hoglin extends net.minecraft.world.entity.animal.Animal implements net.minecraft.world.entity.monster.Enemy,net.minecraft.world.entity.monster.hoglin.HoglinBase {
+  public static final int CONVERSION_TIME;
+  public net.minecraft.world.entity.monster.hoglin.Hoglin(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.hoglin.Hoglin>, net.minecraft.world.level.Level);
+  public void setTimeInOverworld(int);
+  public boolean canBeLeashed();
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public boolean doHurtTarget(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.Entity);
+  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
+  public net.minecraft.world.entity.ai.Brain<net.minecraft.world.entity.monster.hoglin.Hoglin> getBrain();
+  public void aiStep();
+  public net.minecraft.world.entity.EntityDimensions getDefaultDimensions(net.minecraft.world.entity.Pose);
+  public static boolean checkHoglinSpawnRules(net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.hoglin.Hoglin>, net.minecraft.world.level.LevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public boolean removeWhenFarAway(double);
+  public float getWalkTargetValue(net.minecraft.core.BlockPos, net.minecraft.world.level.LevelReader);
+  public net.minecraft.world.InteractionResult mobInteract(net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand);
+  public void handleEntityEvent(byte);
+  public int getAttackAnimationRemainingTicks();
+  public boolean shouldDropExperience();
+  public boolean isFood(net.minecraft.world.item.ItemStack);
+  public boolean isAdult();
+  public void setImmuneToZombification(boolean);
+  public boolean isConverting();
+  public boolean canBeHunted();
+  public net.minecraft.world.entity.AgeableMob getBreedOffspring(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.AgeableMob);
+  public boolean canFallInLove();
+  public net.minecraft.sounds.SoundSource getSoundSource();
+  public net.minecraft.world.entity.LivingEntity getTarget();
+}
+Compiled from "HoglinAi.java"
+public class net.minecraft.world.entity.monster.hoglin.HoglinAi {
+  public static final int REPELLENT_DETECTION_RANGE_HORIZONTAL;
+  public static final int REPELLENT_DETECTION_RANGE_VERTICAL;
+  public net.minecraft.world.entity.monster.hoglin.HoglinAi();
+  public static java.util.Optional<net.minecraft.sounds.SoundEvent> getSoundForCurrentActivity(net.minecraft.world.entity.monster.hoglin.Hoglin);
+}
+Compiled from "HoglinBase.java"
+public interface net.minecraft.world.entity.monster.hoglin.HoglinBase {
+  public static final int ATTACK_ANIMATION_DURATION;
+  public static final float PROBABILITY_OF_SPAWNING_AS_BABY;
+  public abstract int getAttackAnimationRemainingTicks();
+  public static boolean hurtAndThrowTarget(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.LivingEntity, net.minecraft.world.entity.LivingEntity);
+  public static void throwTarget(net.minecraft.world.entity.LivingEntity, net.minecraft.world.entity.LivingEntity);
+}
+Compiled from "package-info.java"
+interface net.minecraft.world.entity.monster.hoglin.package-info {
+}
+Compiled from "AbstractIllager.java"
+public abstract class net.minecraft.world.entity.monster.illager.AbstractIllager extends net.minecraft.world.entity.raid.Raider {
+  public net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose getArmPose();
+  public boolean canAttack(net.minecraft.world.entity.LivingEntity);
+}
+Compiled from "AbstractIllager.java"
+public final class net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose extends java.lang.Enum<net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose> {
+  public static final net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose CROSSED;
+  public static final net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose ATTACKING;
+  public static final net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose SPELLCASTING;
+  public static final net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose BOW_AND_ARROW;
+  public static final net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose CROSSBOW_HOLD;
+  public static final net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose CROSSBOW_CHARGE;
+  public static final net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose CELEBRATING;
+  public static final net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose NEUTRAL;
+  public static net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose[] values();
+  public static net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose valueOf(java.lang.String);
+}
+Compiled from "AbstractIllager.java"
+public class net.minecraft.world.entity.monster.illager.AbstractIllager$RaiderOpenDoorGoal extends net.minecraft.world.entity.ai.goal.OpenDoorGoal {
+  public net.minecraft.world.entity.monster.illager.AbstractIllager$RaiderOpenDoorGoal(net.minecraft.world.entity.monster.illager.AbstractIllager, net.minecraft.world.entity.raid.Raider);
+  public boolean canUse();
+}
+Compiled from "Evoker.java"
+public class net.minecraft.world.entity.monster.illager.Evoker extends net.minecraft.world.entity.monster.illager.SpellcasterIllager {
+  public net.minecraft.world.entity.monster.illager.Evoker(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.illager.Evoker>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public net.minecraft.sounds.SoundEvent getCelebrateSound();
+  public void applyRaidBuffs(net.minecraft.server.level.ServerLevel, int, boolean);
+}
+Compiled from "Evoker.java"
+class net.minecraft.world.entity.monster.illager.Evoker$EvokerAttackSpellGoal extends net.minecraft.world.entity.monster.illager.SpellcasterIllager$SpellcasterUseSpellGoal {
+}
+Compiled from "Evoker.java"
+class net.minecraft.world.entity.monster.illager.Evoker$EvokerCastingSpellGoal extends net.minecraft.world.entity.monster.illager.SpellcasterIllager$SpellcasterCastingSpellGoal {
+  public void tick();
+}
+Compiled from "Evoker.java"
+class net.minecraft.world.entity.monster.illager.Evoker$EvokerSummonSpellGoal extends net.minecraft.world.entity.monster.illager.SpellcasterIllager$SpellcasterUseSpellGoal {
+  public boolean canUse();
+}
+Compiled from "Evoker.java"
+public class net.minecraft.world.entity.monster.illager.Evoker$EvokerWololoSpellGoal extends net.minecraft.world.entity.monster.illager.SpellcasterIllager$SpellcasterUseSpellGoal {
+  public net.minecraft.world.entity.monster.illager.Evoker$EvokerWololoSpellGoal(net.minecraft.world.entity.monster.illager.Evoker);
+  public boolean canUse();
+  public boolean canContinueToUse();
+  public void stop();
+  public void tick();
+  public void start();
+}
+Compiled from "Illusioner.java"
+public class net.minecraft.world.entity.monster.illager.Illusioner extends net.minecraft.world.entity.monster.illager.SpellcasterIllager implements net.minecraft.world.entity.monster.RangedAttackMob {
+  public static final int ILLUSION_SPREAD;
+  public net.minecraft.world.entity.monster.illager.Illusioner(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.illager.Illusioner>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public void aiStep();
+  public net.minecraft.sounds.SoundEvent getCelebrateSound();
+  public net.minecraft.world.phys.Vec3[] getIllusionOffsets(float);
+  public void applyRaidBuffs(net.minecraft.server.level.ServerLevel, int, boolean);
+  public void performRangedAttack(net.minecraft.world.entity.LivingEntity, float);
+  public net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose getArmPose();
+}
+Compiled from "Illusioner.java"
+class net.minecraft.world.entity.monster.illager.Illusioner$IllusionerBlindnessSpellGoal extends net.minecraft.world.entity.monster.illager.SpellcasterIllager$SpellcasterUseSpellGoal {
+  public boolean canUse();
+  public void start();
+}
+Compiled from "Illusioner.java"
+class net.minecraft.world.entity.monster.illager.Illusioner$IllusionerMirrorSpellGoal extends net.minecraft.world.entity.monster.illager.SpellcasterIllager$SpellcasterUseSpellGoal {
+  public boolean canUse();
+}
+Compiled from "Pillager.java"
+public class net.minecraft.world.entity.monster.illager.Pillager extends net.minecraft.world.entity.monster.illager.AbstractIllager implements net.minecraft.world.entity.monster.CrossbowAttackMob,net.minecraft.world.entity.npc.InventoryCarrier {
+  public net.minecraft.world.entity.monster.illager.Pillager(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.illager.Pillager>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public boolean canUseNonMeleeWeapon(net.minecraft.world.item.ItemStack);
+  public boolean isChargingCrossbow();
+  public void setChargingCrossbow(boolean);
+  public void onCrossbowAttackPerformed();
+  public net.minecraft.tags.TagKey<net.minecraft.world.item.Item> getPreferredWeaponType();
+  public net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose getArmPose();
+  public float getWalkTargetValue(net.minecraft.core.BlockPos, net.minecraft.world.level.LevelReader);
+  public int getMaxSpawnClusterSize();
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public void performRangedAttack(net.minecraft.world.entity.LivingEntity, float);
+  public net.minecraft.world.SimpleContainer getInventory();
+  public net.minecraft.world.entity.SlotAccess getSlot(int);
+  public void applyRaidBuffs(net.minecraft.server.level.ServerLevel, int, boolean);
+  public net.minecraft.sounds.SoundEvent getCelebrateSound();
+}
+Compiled from "SpellcasterIllager.java"
+public abstract class net.minecraft.world.entity.monster.illager.SpellcasterIllager extends net.minecraft.world.entity.monster.illager.AbstractIllager {
+  public net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose getArmPose();
+  public boolean isCastingSpell();
+  public void setIsCastingSpell(net.minecraft.world.entity.monster.illager.SpellcasterIllager$IllagerSpell);
+  public void tick();
+}
+Compiled from "SpellcasterIllager.java"
+public final class net.minecraft.world.entity.monster.illager.SpellcasterIllager$IllagerSpell extends java.lang.Enum<net.minecraft.world.entity.monster.illager.SpellcasterIllager$IllagerSpell> {
+  public static final net.minecraft.world.entity.monster.illager.SpellcasterIllager$IllagerSpell NONE;
+  public static final net.minecraft.world.entity.monster.illager.SpellcasterIllager$IllagerSpell SUMMON_VEX;
+  public static final net.minecraft.world.entity.monster.illager.SpellcasterIllager$IllagerSpell FANGS;
+  public static final net.minecraft.world.entity.monster.illager.SpellcasterIllager$IllagerSpell WOLOLO;
+  public static final net.minecraft.world.entity.monster.illager.SpellcasterIllager$IllagerSpell DISAPPEAR;
+  public static final net.minecraft.world.entity.monster.illager.SpellcasterIllager$IllagerSpell BLINDNESS;
+  public static net.minecraft.world.entity.monster.illager.SpellcasterIllager$IllagerSpell[] values();
+  public static net.minecraft.world.entity.monster.illager.SpellcasterIllager$IllagerSpell valueOf(java.lang.String);
+  public static net.minecraft.world.entity.monster.illager.SpellcasterIllager$IllagerSpell byId(int);
+}
+Compiled from "SpellcasterIllager.java"
+public class net.minecraft.world.entity.monster.illager.SpellcasterIllager$SpellcasterCastingSpellGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.illager.SpellcasterIllager$SpellcasterCastingSpellGoal(net.minecraft.world.entity.monster.illager.SpellcasterIllager);
+  public boolean canUse();
+  public void start();
+  public void stop();
+  public void tick();
+}
+Compiled from "SpellcasterIllager.java"
+public abstract class net.minecraft.world.entity.monster.illager.SpellcasterIllager$SpellcasterUseSpellGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public boolean canUse();
+  public boolean canContinueToUse();
+  public void start();
+  public void tick();
+}
+Compiled from "Vindicator.java"
+public class net.minecraft.world.entity.monster.illager.Vindicator extends net.minecraft.world.entity.monster.illager.AbstractIllager {
+  public net.minecraft.world.entity.monster.illager.Vindicator(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.illager.Vindicator>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public net.minecraft.world.entity.monster.illager.AbstractIllager$IllagerArmPose getArmPose();
+  public net.minecraft.sounds.SoundEvent getCelebrateSound();
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public void setCustomName(net.minecraft.network.chat.Component);
+  public void applyRaidBuffs(net.minecraft.server.level.ServerLevel, int, boolean);
+}
+Compiled from "Vindicator.java"
+class net.minecraft.world.entity.monster.illager.Vindicator$VindicatorBreakDoorGoal extends net.minecraft.world.entity.ai.goal.BreakDoorGoal {
+  public net.minecraft.world.entity.monster.illager.Vindicator$VindicatorBreakDoorGoal(net.minecraft.world.entity.Mob);
+  public boolean canContinueToUse();
+  public boolean canUse();
+  public void start();
+}
+Compiled from "Vindicator.java"
+class net.minecraft.world.entity.monster.illager.Vindicator$VindicatorJohnnyAttackGoal extends net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal<net.minecraft.world.entity.LivingEntity> {
+  public net.minecraft.world.entity.monster.illager.Vindicator$VindicatorJohnnyAttackGoal(net.minecraft.world.entity.monster.illager.Vindicator);
+  public boolean canUse();
+  public void start();
+}
+Compiled from "package-info.java"
+interface net.minecraft.world.entity.monster.illager.package-info {
+}
+Compiled from "package-info.java"
+interface net.minecraft.world.entity.monster.package-info {
+}
+Compiled from "AbstractPiglin.java"
+public abstract class net.minecraft.world.entity.monster.piglin.AbstractPiglin extends net.minecraft.world.entity.monster.Monster {
+  public static final int CONVERSION_TIME;
+  public net.minecraft.world.entity.monster.piglin.AbstractPiglin(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.piglin.AbstractPiglin>, net.minecraft.world.level.Level);
+  public void setImmuneToZombification(boolean);
+  public void setTimeInOverworld(int);
+  public boolean isConverting();
+  public boolean isAdult();
+  public abstract net.minecraft.world.entity.monster.piglin.PiglinArmPose getArmPose();
+  public net.minecraft.world.entity.LivingEntity getTarget();
+  public void playAmbientSound();
+}
+Compiled from "Piglin.java"
+public class net.minecraft.world.entity.monster.piglin.Piglin extends net.minecraft.world.entity.monster.piglin.AbstractPiglin implements net.minecraft.world.entity.monster.CrossbowAttackMob,net.minecraft.world.entity.npc.InventoryCarrier {
+  public net.minecraft.world.entity.monster.piglin.Piglin(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.piglin.AbstractPiglin>, net.minecraft.world.level.Level);
+  public net.minecraft.world.SimpleContainer getInventory();
+  public net.minecraft.world.entity.SlotAccess getSlot(int);
+  public void onSyncedDataUpdated(net.minecraft.network.syncher.EntityDataAccessor<?>);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public static boolean checkPiglinSpawnRules(net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.piglin.Piglin>, net.minecraft.world.level.LevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public net.minecraft.world.entity.ai.Brain<net.minecraft.world.entity.monster.piglin.Piglin> getBrain();
+  public net.minecraft.world.InteractionResult mobInteract(net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand);
+  public net.minecraft.world.entity.EntityDimensions getDefaultDimensions(net.minecraft.world.entity.Pose);
+  public void setBaby(boolean);
+  public boolean isBaby();
+  public net.minecraft.tags.TagKey<net.minecraft.world.item.Item> getPreferredWeaponType();
+  public void setChargingCrossbow(boolean);
+  public void onCrossbowAttackPerformed();
+  public net.minecraft.world.entity.monster.piglin.PiglinArmPose getArmPose();
+  public boolean isDancing();
+  public void setDancing(boolean);
+  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
+  public void performRangedAttack(net.minecraft.world.entity.LivingEntity, float);
+  public boolean canUseNonMeleeWeapon(net.minecraft.world.item.ItemStack);
+  public boolean wantsToPickUp(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack);
+  public boolean startRiding(net.minecraft.world.entity.Entity, boolean, boolean);
+}
+Compiled from "PiglinAi.java"
+public class net.minecraft.world.entity.monster.piglin.PiglinAi {
+  public static final int REPELLENT_DETECTION_RANGE_HORIZONTAL;
+  public static final int REPELLENT_DETECTION_RANGE_VERTICAL;
+  public static final net.minecraft.world.item.Item BARTERING_ITEM;
+  public static final int MAX_TIME_BETWEEN_HUNTS;
+  public net.minecraft.world.entity.monster.piglin.PiglinAi();
+  public static java.util.List<net.minecraft.world.entity.ai.ActivityData<net.minecraft.world.entity.monster.piglin.Piglin>> getActivities(net.minecraft.world.entity.monster.piglin.Piglin);
+  public static void angerNearbyPiglins(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.player.Player, boolean);
+  public static net.minecraft.world.InteractionResult mobInteract(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.monster.piglin.Piglin, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand);
+  public static java.util.Optional<net.minecraft.sounds.SoundEvent> getSoundForCurrentActivity(net.minecraft.world.entity.monster.piglin.Piglin);
+  public static boolean isWearingSafeArmor(net.minecraft.world.entity.LivingEntity);
+  public static java.util.Optional<net.minecraft.world.entity.LivingEntity> getAvoidTarget(net.minecraft.world.entity.monster.piglin.Piglin);
+  public static java.util.Optional<net.minecraft.world.entity.player.Player> getNearestVisibleTargetablePlayer(net.minecraft.world.entity.monster.piglin.AbstractPiglin);
+  public static boolean isPlayerHoldingLovedItem(net.minecraft.world.entity.LivingEntity);
+  public static boolean isZombified(net.minecraft.world.entity.Entity);
+  public static java.util.List<net.minecraft.world.entity.monster.piglin.AbstractPiglin> findNearbyAdultPiglins(net.minecraft.world.entity.ai.Brain<?>);
+}
+Compiled from "PiglinArmPose.java"
+public final class net.minecraft.world.entity.monster.piglin.PiglinArmPose extends java.lang.Enum<net.minecraft.world.entity.monster.piglin.PiglinArmPose> {
+  public static final net.minecraft.world.entity.monster.piglin.PiglinArmPose ATTACKING_WITH_MELEE_WEAPON;
+  public static final net.minecraft.world.entity.monster.piglin.PiglinArmPose CROSSBOW_HOLD;
+  public static final net.minecraft.world.entity.monster.piglin.PiglinArmPose CROSSBOW_CHARGE;
+  public static final net.minecraft.world.entity.monster.piglin.PiglinArmPose ADMIRING_ITEM;
+  public static final net.minecraft.world.entity.monster.piglin.PiglinArmPose DANCING;
+  public static final net.minecraft.world.entity.monster.piglin.PiglinArmPose DEFAULT;
+  public static net.minecraft.world.entity.monster.piglin.PiglinArmPose[] values();
+  public static net.minecraft.world.entity.monster.piglin.PiglinArmPose valueOf(java.lang.String);
+}
+Compiled from "PiglinBrute.java"
+public class net.minecraft.world.entity.monster.piglin.PiglinBrute extends net.minecraft.world.entity.monster.piglin.AbstractPiglin {
+  public static final net.minecraft.world.entity.ai.Brain$Provider<net.minecraft.world.entity.monster.piglin.PiglinBrute> BRAIN_PROVIDER;
+  public net.minecraft.world.entity.monster.piglin.PiglinBrute(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.piglin.PiglinBrute>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public net.minecraft.world.entity.ai.Brain<net.minecraft.world.entity.monster.piglin.PiglinBrute> getBrain();
+  public boolean canHunt();
+  public boolean wantsToPickUp(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack);
+  public net.minecraft.world.entity.monster.piglin.PiglinArmPose getArmPose();
+  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
+}
+Compiled from "PiglinBruteAi.java"
+public class net.minecraft.world.entity.monster.piglin.PiglinBruteAi {
+  public net.minecraft.world.entity.monster.piglin.PiglinBruteAi();
+  public static java.util.List<net.minecraft.world.entity.ai.ActivityData<net.minecraft.world.entity.monster.piglin.PiglinBrute>> getActivities(net.minecraft.world.entity.monster.piglin.PiglinBrute);
+}
+Compiled from "RememberIfHoglinWasKilled.java"
+public class net.minecraft.world.entity.monster.piglin.RememberIfHoglinWasKilled {
+  public net.minecraft.world.entity.monster.piglin.RememberIfHoglinWasKilled();
+  public static net.minecraft.world.entity.ai.behavior.BehaviorControl<net.minecraft.world.entity.LivingEntity> create();
+}
+Compiled from "StartAdmiringItemIfSeen.java"
+public class net.minecraft.world.entity.monster.piglin.StartAdmiringItemIfSeen {
+  public net.minecraft.world.entity.monster.piglin.StartAdmiringItemIfSeen();
+  public static net.minecraft.world.entity.ai.behavior.BehaviorControl<net.minecraft.world.entity.LivingEntity> create(int);
+}
+Compiled from "StartHuntingHoglin.java"
+public class net.minecraft.world.entity.monster.piglin.StartHuntingHoglin {
+  public net.minecraft.world.entity.monster.piglin.StartHuntingHoglin();
+  public static net.minecraft.world.entity.ai.behavior.OneShot<net.minecraft.world.entity.monster.piglin.Piglin> create();
+}
+Compiled from "StopAdmiringIfItemTooFarAway.java"
+public class net.minecraft.world.entity.monster.piglin.StopAdmiringIfItemTooFarAway<E extends net.minecraft.world.entity.monster.piglin.Piglin> {
+  public net.minecraft.world.entity.monster.piglin.StopAdmiringIfItemTooFarAway();
+  public static net.minecraft.world.entity.ai.behavior.BehaviorControl<net.minecraft.world.entity.LivingEntity> create(int);
+}
+Compiled from "StopAdmiringIfTiredOfTryingToReachItem.java"
+public class net.minecraft.world.entity.monster.piglin.StopAdmiringIfTiredOfTryingToReachItem {
+  public net.minecraft.world.entity.monster.piglin.StopAdmiringIfTiredOfTryingToReachItem();
+  public static net.minecraft.world.entity.ai.behavior.BehaviorControl<net.minecraft.world.entity.LivingEntity> create(int, int);
+}
+Compiled from "StopHoldingItemIfNoLongerAdmiring.java"
+public class net.minecraft.world.entity.monster.piglin.StopHoldingItemIfNoLongerAdmiring {
+  public net.minecraft.world.entity.monster.piglin.StopHoldingItemIfNoLongerAdmiring();
+  public static net.minecraft.world.entity.ai.behavior.BehaviorControl<net.minecraft.world.entity.monster.piglin.Piglin> create();
+}
+Compiled from "package-info.java"
+interface net.minecraft.world.entity.monster.piglin.package-info {
+}
+Compiled from "AbstractSkeleton.java"
+public abstract class net.minecraft.world.entity.monster.skeleton.AbstractSkeleton extends net.minecraft.world.entity.monster.Monster implements net.minecraft.world.entity.monster.RangedAttackMob {
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public void rideTick();
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public void reassessWeaponGoal();
+  public void performRangedAttack(net.minecraft.world.entity.LivingEntity, float);
+  public boolean canUseNonMeleeWeapon(net.minecraft.world.item.ItemStack);
+  public net.minecraft.tags.TagKey<net.minecraft.world.item.Item> getPreferredWeaponType();
+  public void onEquipItem(net.minecraft.world.entity.EquipmentSlot, net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack);
+  public boolean isShaking();
+  public boolean wantsToPickUp(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack);
+}
+Compiled from "Bogged.java"
+public class net.minecraft.world.entity.monster.skeleton.Bogged extends net.minecraft.world.entity.monster.skeleton.AbstractSkeleton implements net.minecraft.world.entity.Shearable {
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public net.minecraft.world.entity.monster.skeleton.Bogged(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.skeleton.Bogged>, net.minecraft.world.level.Level);
+  public boolean isSheared();
+  public void setSheared(boolean);
+  public void shear(net.minecraft.server.level.ServerLevel, net.minecraft.sounds.SoundSource, net.minecraft.world.item.ItemStack);
+  public boolean readyForShearing();
+}
+Compiled from "Parched.java"
+public class net.minecraft.world.entity.monster.skeleton.Parched extends net.minecraft.world.entity.monster.skeleton.AbstractSkeleton {
+  public net.minecraft.world.entity.monster.skeleton.Parched(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.skeleton.AbstractSkeleton>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public boolean canBeAffected(net.minecraft.world.effect.MobEffectInstance);
+}
+Compiled from "Skeleton.java"
+public class net.minecraft.world.entity.monster.skeleton.Skeleton extends net.minecraft.world.entity.monster.skeleton.AbstractSkeleton {
+  public net.minecraft.world.entity.monster.skeleton.Skeleton(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.skeleton.Skeleton>, net.minecraft.world.level.Level);
+  public boolean isShaking();
+  public void tick();
+  public void startFreezeConversion(int);
+  public boolean canFreeze();
+}
+Compiled from "Stray.java"
+public class net.minecraft.world.entity.monster.skeleton.Stray extends net.minecraft.world.entity.monster.skeleton.AbstractSkeleton {
+  public net.minecraft.world.entity.monster.skeleton.Stray(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.skeleton.Stray>, net.minecraft.world.level.Level);
+  public static boolean checkStraySpawnRules(net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.skeleton.Stray>, net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+}
+Compiled from "WitherSkeleton.java"
+public class net.minecraft.world.entity.monster.skeleton.WitherSkeleton extends net.minecraft.world.entity.monster.skeleton.AbstractSkeleton {
+  public net.minecraft.world.entity.monster.skeleton.WitherSkeleton(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.skeleton.WitherSkeleton>, net.minecraft.world.level.Level);
+  public net.minecraft.tags.TagKey<net.minecraft.world.item.Item> getPreferredWeaponType();
+  public boolean canHoldItem(net.minecraft.world.item.ItemStack);
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public boolean doHurtTarget(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.Entity);
+  public boolean canBeAffected(net.minecraft.world.effect.MobEffectInstance);
+}
+Compiled from "package-info.java"
+interface net.minecraft.world.entity.monster.skeleton.package-info {
+}
+Compiled from "CaveSpider.java"
+public class net.minecraft.world.entity.monster.spider.CaveSpider extends net.minecraft.world.entity.monster.spider.Spider {
+  public net.minecraft.world.entity.monster.spider.CaveSpider(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.spider.CaveSpider>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createCaveSpider();
+  public boolean doHurtTarget(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.Entity);
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public net.minecraft.world.phys.Vec3 getVehicleAttachmentPoint(net.minecraft.world.entity.Entity);
+}
+Compiled from "Spider.java"
+public class net.minecraft.world.entity.monster.spider.Spider extends net.minecraft.world.entity.monster.Monster {
+  public net.minecraft.world.entity.monster.spider.Spider(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.spider.Spider>, net.minecraft.world.level.Level);
+  public void tick();
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public boolean onClimbable();
+  public void makeStuckInBlock(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.phys.Vec3);
+  public boolean canBeAffected(net.minecraft.world.effect.MobEffectInstance);
+  public boolean isClimbing();
+  public void setClimbing(boolean);
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public net.minecraft.world.phys.Vec3 getVehicleAttachmentPoint(net.minecraft.world.entity.Entity);
+}
+Compiled from "Spider.java"
+class net.minecraft.world.entity.monster.spider.Spider$SpiderAttackGoal extends net.minecraft.world.entity.ai.goal.MeleeAttackGoal {
+  public net.minecraft.world.entity.monster.spider.Spider$SpiderAttackGoal(net.minecraft.world.entity.monster.spider.Spider);
+  public boolean canUse();
+  public boolean canContinueToUse();
+}
+Compiled from "Spider.java"
+public class net.minecraft.world.entity.monster.spider.Spider$SpiderEffectsGroupData implements net.minecraft.world.entity.SpawnGroupData {
+  public net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect> effect;
+  public net.minecraft.world.entity.monster.spider.Spider$SpiderEffectsGroupData();
+  public void setRandomEffect(net.minecraft.util.RandomSource);
+}
+Compiled from "Spider.java"
+class net.minecraft.world.entity.monster.spider.Spider$SpiderTargetGoal<T extends net.minecraft.world.entity.LivingEntity> extends net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal<T> {
+  public net.minecraft.world.entity.monster.spider.Spider$SpiderTargetGoal(net.minecraft.world.entity.monster.spider.Spider, java.lang.Class<T>);
+  public boolean canUse();
+}
+Compiled from "package-info.java"
+interface net.minecraft.world.entity.monster.spider.package-info {
+}
+Compiled from "AngerLevel.java"
+public final class net.minecraft.world.entity.monster.warden.AngerLevel extends java.lang.Enum<net.minecraft.world.entity.monster.warden.AngerLevel> {
+  public static final net.minecraft.world.entity.monster.warden.AngerLevel CALM;
+  public static final net.minecraft.world.entity.monster.warden.AngerLevel AGITATED;
+  public static final net.minecraft.world.entity.monster.warden.AngerLevel ANGRY;
+  public static net.minecraft.world.entity.monster.warden.AngerLevel[] values();
+  public static net.minecraft.world.entity.monster.warden.AngerLevel valueOf(java.lang.String);
+  public int getMinimumAnger();
+  public net.minecraft.sounds.SoundEvent getAmbientSound();
+  public net.minecraft.sounds.SoundEvent getListeningSound();
+  public static net.minecraft.world.entity.monster.warden.AngerLevel byAnger(int);
+  public boolean isAngry();
+}
+Compiled from "AngerManagement.java"
+public class net.minecraft.world.entity.monster.warden.AngerManagement {
+  public static com.mojang.serialization.Codec<net.minecraft.world.entity.monster.warden.AngerManagement> codec(java.util.function.Predicate<net.minecraft.world.entity.Entity>);
+  public net.minecraft.world.entity.monster.warden.AngerManagement(java.util.function.Predicate<net.minecraft.world.entity.Entity>, java.util.List<com.mojang.datafixers.util.Pair<java.util.UUID, java.lang.Integer>>);
+  public void tick(net.minecraft.server.level.ServerLevel, java.util.function.Predicate<net.minecraft.world.entity.Entity>);
+  public int increaseAnger(net.minecraft.world.entity.Entity, int);
+  public void clearAnger(net.minecraft.world.entity.Entity);
+  public int getActiveAnger(net.minecraft.world.entity.Entity);
+  public java.util.Optional<net.minecraft.world.entity.LivingEntity> getActiveEntity();
+}
+Compiled from "AngerManagement.java"
+public final class net.minecraft.world.entity.monster.warden.AngerManagement$Sorter extends java.lang.Record implements java.util.Comparator<net.minecraft.world.entity.Entity> {
+  public int compare(net.minecraft.world.entity.Entity, net.minecraft.world.entity.Entity);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.world.entity.monster.warden.AngerManagement angerManagement();
+  public int compare(java.lang.Object, java.lang.Object);
+}
+Compiled from "Warden.java"
+public class net.minecraft.world.entity.monster.warden.Warden extends net.minecraft.world.entity.monster.Monster implements net.minecraft.world.level.gameevent.vibrations.VibrationSystem {
+  public final net.minecraft.world.entity.AnimationState roarAnimationState;
+  public final net.minecraft.world.entity.AnimationState sniffAnimationState;
+  public final net.minecraft.world.entity.AnimationState emergeAnimationState;
+  public final net.minecraft.world.entity.AnimationState diggingAnimationState;
+  public final net.minecraft.world.entity.AnimationState attackAnimationState;
+  public final net.minecraft.world.entity.AnimationState sonicBoomAnimationState;
+  public net.minecraft.world.entity.monster.warden.Warden(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Monster>, net.minecraft.world.level.Level);
+  public net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.game.ClientGamePacketListener> getAddEntityPacket(net.minecraft.server.level.ServerEntity);
+  public void recreateFromPacket(net.minecraft.network.protocol.game.ClientboundAddEntityPacket);
+  public boolean checkSpawnObstruction(net.minecraft.world.level.LevelReader);
+  public float getWalkTargetValue(net.minecraft.core.BlockPos, net.minecraft.world.level.LevelReader);
+  public boolean isInvulnerableTo(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource);
+  public float getSecondsToDisableBlocking();
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public boolean dampensVibrations();
+  public boolean doHurtTarget(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.Entity);
+  public int getClientAngerLevel();
+  public void tick();
+  public void handleEntityEvent(byte);
+  public float getTendrilAnimation(float);
+  public float getHeartAnimation(float);
+  public void onSyncedDataUpdated(net.minecraft.network.syncher.EntityDataAccessor<?>);
+  public boolean ignoreExplosion(net.minecraft.world.level.Explosion);
+  public net.minecraft.world.entity.ai.Brain<net.minecraft.world.entity.monster.warden.Warden> getBrain();
+  public void updateDynamicGameEventListener(java.util.function.BiConsumer<net.minecraft.world.level.gameevent.DynamicGameEventListener<?>, net.minecraft.server.level.ServerLevel>);
+  public boolean canAttack(net.minecraft.world.entity.LivingEntity);
+  public boolean canTargetEntity(net.minecraft.world.entity.Entity);
+  public static void applyDarknessAround(net.minecraft.server.level.ServerLevel, net.minecraft.world.phys.Vec3, net.minecraft.world.entity.Entity, int);
+  public net.minecraft.world.entity.monster.warden.AngerLevel getAngerLevel();
+  public void clearAnger(net.minecraft.world.entity.Entity);
+  public void increaseAngerAt(net.minecraft.world.entity.Entity);
+  public void increaseAngerAt(net.minecraft.world.entity.Entity, int, boolean);
+  public java.util.Optional<net.minecraft.world.entity.LivingEntity> getEntityAngryAt();
+  public net.minecraft.world.entity.LivingEntity getTarget();
+  public boolean removeWhenFarAway(double);
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
+  public void setAttackTarget(net.minecraft.world.entity.LivingEntity);
+  public net.minecraft.world.entity.EntityDimensions getDefaultDimensions(net.minecraft.world.entity.Pose);
+  public boolean isPushable();
+  public net.minecraft.world.entity.monster.warden.AngerManagement getAngerManagement();
+  public net.minecraft.world.level.gameevent.vibrations.VibrationSystem$Data getVibrationData();
+  public net.minecraft.world.level.gameevent.vibrations.VibrationSystem$User getVibrationUser();
+}
+Compiled from "Warden.java"
+class net.minecraft.world.entity.monster.warden.Warden$VibrationUser implements net.minecraft.world.level.gameevent.vibrations.VibrationSystem$User {
+  public int getListenerRadius();
+  public net.minecraft.world.level.gameevent.PositionSource getPositionSource();
+  public net.minecraft.tags.TagKey<net.minecraft.world.level.gameevent.GameEvent> getListenableEvents();
+  public boolean canTriggerAvoidVibration();
+  public boolean canReceiveVibration(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.core.Holder<net.minecraft.world.level.gameevent.GameEvent>, net.minecraft.world.level.gameevent.GameEvent$Context);
+  public void onReceiveVibration(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.core.Holder<net.minecraft.world.level.gameevent.GameEvent>, net.minecraft.world.entity.Entity, net.minecraft.world.entity.Entity, float);
+}
+Compiled from "WardenAi.java"
+public class net.minecraft.world.entity.monster.warden.WardenAi {
+  public static final int EMERGE_DURATION;
+  public static final int ROAR_DURATION;
+  public static final int DIGGING_COOLDOWN;
+  public net.minecraft.world.entity.monster.warden.WardenAi();
+  public static void updateActivity(net.minecraft.world.entity.ai.Brain<net.minecraft.world.entity.monster.warden.Warden>);
+  public static void setDigCooldown(net.minecraft.world.entity.LivingEntity);
+  public static void setDisturbanceLocation(net.minecraft.world.entity.monster.warden.Warden, net.minecraft.core.BlockPos);
+}
+Compiled from "WardenSpawnTracker.java"
+public class net.minecraft.world.entity.monster.warden.WardenSpawnTracker {
+  public static final com.mojang.serialization.Codec<net.minecraft.world.entity.monster.warden.WardenSpawnTracker> CODEC;
+  public static final int MAX_WARNING_LEVEL;
+  public net.minecraft.world.entity.monster.warden.WardenSpawnTracker(int, int, int);
+  public net.minecraft.world.entity.monster.warden.WardenSpawnTracker();
+  public void tick();
+  public void reset();
+  public static java.util.OptionalInt tryWarn(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.server.level.ServerPlayer);
+  public void setWarningLevel(int);
+  public int getWarningLevel();
+}
+Compiled from "package-info.java"
+interface net.minecraft.world.entity.monster.warden.package-info {
+}
+Compiled from "Drowned.java"
+public class net.minecraft.world.entity.monster.zombie.Drowned extends net.minecraft.world.entity.monster.zombie.Zombie implements net.minecraft.world.entity.monster.RangedAttackMob {
+  public static final float NAUTILUS_SHELL_CHANCE;
+  public net.minecraft.world.entity.monster.zombie.Drowned(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.zombie.Drowned>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public static boolean checkDrownedSpawnRules(net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.zombie.Drowned>, net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+  public net.minecraft.world.entity.EntityDimensions getDefaultDimensions(net.minecraft.world.entity.Pose);
+  public boolean checkSpawnObstruction(net.minecraft.world.level.LevelReader);
+  public boolean okTarget(net.minecraft.world.entity.LivingEntity);
+  public boolean isPushedByFluid();
+  public boolean wantsToSwim();
+  public void updateSwimming();
+  public boolean isVisuallySwimming();
+  public void performRangedAttack(net.minecraft.world.entity.LivingEntity, float);
+  public float rangedAttackUncertainty(net.minecraft.world.level.Level);
+  public void setRangedAttackUncertainty(float);
+  public net.minecraft.tags.TagKey<net.minecraft.world.item.Item> getPreferredWeaponType();
+  public void setSearchingForLand(boolean);
+  public boolean isSearchingForLand();
+  public void rideTick();
+  public boolean wantsToPickUp(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack);
+}
+Compiled from "Drowned.java"
+class net.minecraft.world.entity.monster.zombie.Drowned$DrownedAttackGoal extends net.minecraft.world.entity.ai.goal.ZombieAttackGoal {
+  public net.minecraft.world.entity.monster.zombie.Drowned$DrownedAttackGoal(net.minecraft.world.entity.monster.zombie.Drowned, double, boolean);
+  public boolean canUse();
+  public boolean canContinueToUse();
+}
+Compiled from "Drowned.java"
+class net.minecraft.world.entity.monster.zombie.Drowned$DrownedGoToBeachGoal extends net.minecraft.world.entity.ai.goal.MoveToBlockGoal {
+  public net.minecraft.world.entity.monster.zombie.Drowned$DrownedGoToBeachGoal(net.minecraft.world.entity.monster.zombie.Drowned, double);
+  public boolean canUse();
+  public boolean canContinueToUse();
+  public void start();
+  public void stop();
+}
+Compiled from "Drowned.java"
+class net.minecraft.world.entity.monster.zombie.Drowned$DrownedGoToWaterGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.zombie.Drowned$DrownedGoToWaterGoal(net.minecraft.world.entity.PathfinderMob, double);
+  public boolean canUse();
+  public boolean canContinueToUse();
+  public void start();
+}
+Compiled from "Drowned.java"
+class net.minecraft.world.entity.monster.zombie.Drowned$DrownedMoveControl<T extends net.minecraft.world.entity.monster.zombie.Drowned> extends net.minecraft.world.entity.ai.control.MoveControl<T> {
+  public net.minecraft.world.entity.monster.zombie.Drowned$DrownedMoveControl(T);
+  public void tick();
+}
+Compiled from "Drowned.java"
+class net.minecraft.world.entity.monster.zombie.Drowned$DrownedSwimUpGoal extends net.minecraft.world.entity.ai.goal.Goal {
+  public net.minecraft.world.entity.monster.zombie.Drowned$DrownedSwimUpGoal(net.minecraft.world.entity.monster.zombie.Drowned, double, int);
+  public boolean canUse();
+  public boolean canContinueToUse();
+  public void tick();
+  public void start();
+  public void stop();
+}
+Compiled from "Drowned.java"
+class net.minecraft.world.entity.monster.zombie.Drowned$DrownedTridentAttackGoal extends net.minecraft.world.entity.ai.goal.RangedAttackGoal {
+  public net.minecraft.world.entity.monster.zombie.Drowned$DrownedTridentAttackGoal(net.minecraft.world.entity.monster.RangedAttackMob, double, int, float);
+  public boolean canUse();
+  public void start();
+  public void stop();
+}
+Compiled from "Husk.java"
+public class net.minecraft.world.entity.monster.zombie.Husk extends net.minecraft.world.entity.monster.zombie.Zombie {
+  public net.minecraft.world.entity.monster.zombie.Husk(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.zombie.Husk>, net.minecraft.world.level.Level);
+  public boolean doHurtTarget(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.Entity);
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public net.minecraft.world.entity.EntityDimensions getDefaultDimensions(net.minecraft.world.entity.Pose);
+}
+Compiled from "Husk.java"
+public class net.minecraft.world.entity.monster.zombie.Husk$HuskGroupData extends net.minecraft.world.entity.monster.zombie.Zombie$ZombieGroupData {
+  public boolean triedToSpawnCamelHusk;
+  public net.minecraft.world.entity.monster.zombie.Husk$HuskGroupData(net.minecraft.world.entity.monster.zombie.Zombie$ZombieGroupData);
+}
+Compiled from "Zombie.java"
+public class net.minecraft.world.entity.monster.zombie.Zombie extends net.minecraft.world.entity.monster.Monster {
+  public static final float ZOMBIE_LEADER_CHANCE;
+  public static final int REINFORCEMENT_ATTEMPTS;
+  public static final int REINFORCEMENT_RANGE_MAX;
+  public static final int REINFORCEMENT_RANGE_MIN;
+  public net.minecraft.world.entity.monster.zombie.Zombie(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.zombie.Zombie>, net.minecraft.world.level.Level);
+  public net.minecraft.world.entity.monster.zombie.Zombie(net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public boolean isUnderWaterConverting();
+  public boolean canBreakDoors();
+  public void setCanBreakDoors(boolean);
+  public boolean isBaby();
+  public void setBaby(boolean);
+  public void onSyncedDataUpdated(net.minecraft.network.syncher.EntityDataAccessor<?>);
+  public void tick();
+  public boolean convertVillagerToZombieVillager(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.npc.villager.Villager);
+  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
+  public boolean doHurtTarget(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.Entity);
+  public net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.zombie.Zombie> getType();
+  public boolean killedEntity(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.LivingEntity, net.minecraft.world.damagesource.DamageSource);
+  public net.minecraft.world.entity.EntityDimensions getDefaultDimensions(net.minecraft.world.entity.Pose);
+  public boolean canHoldItem(net.minecraft.world.item.ItemStack);
+  public boolean wantsToPickUp(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack);
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public void setInWaterTime(int);
+  public void setConversionTime(int);
+  public static boolean getSpawnAsBabyOdds(net.minecraft.util.RandomSource);
+}
+Compiled from "Zombie.java"
+class net.minecraft.world.entity.monster.zombie.Zombie$ZombieAttackTurtleEggGoal extends net.minecraft.world.entity.ai.goal.RemoveBlockGoal {
+  public net.minecraft.world.entity.monster.zombie.Zombie$ZombieAttackTurtleEggGoal(net.minecraft.world.entity.monster.zombie.Zombie, net.minecraft.world.entity.PathfinderMob, double, int);
+  public void playDestroyProgressSound(net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos);
+  public void playBreakSound(net.minecraft.world.level.Level, net.minecraft.core.BlockPos);
+  public double acceptedDistance();
+}
+Compiled from "Zombie.java"
+public class net.minecraft.world.entity.monster.zombie.Zombie$ZombieGroupData implements net.minecraft.world.entity.SpawnGroupData {
+  public final boolean isBaby;
+  public final boolean canSpawnJockey;
+  public net.minecraft.world.entity.monster.zombie.Zombie$ZombieGroupData(boolean, boolean);
+}
+Compiled from "ZombieVillager.java"
+public class net.minecraft.world.entity.monster.zombie.ZombieVillager extends net.minecraft.world.entity.monster.zombie.Zombie implements net.minecraft.world.entity.npc.villager.VillagerDataHolder {
+  public net.minecraft.world.entity.monster.zombie.ZombieVillager(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.zombie.ZombieVillager>, net.minecraft.world.level.Level);
+  public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
+  public void tick();
+  public net.minecraft.world.InteractionResult mobInteract(net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand);
+  public boolean removeWhenFarAway(double);
+  public boolean isConverting();
+  public net.minecraft.world.entity.EntityDimensions getDefaultDimensions(net.minecraft.world.entity.Pose);
+  public void handleEntityEvent(byte);
+  public void setVillagerConversionTime(int);
+  public float getVoicePitch();
+  public net.minecraft.sounds.SoundEvent getAmbientSound();
+  public net.minecraft.sounds.SoundEvent getHurtSound(net.minecraft.world.damagesource.DamageSource);
+  public net.minecraft.sounds.SoundEvent getDeathSound();
+  public net.minecraft.sounds.SoundEvent getStepSound();
+  public void setTradeOffers(net.minecraft.world.item.trading.MerchantOffers);
+  public void setGossips(net.minecraft.world.entity.ai.gossip.GossipContainer);
+  public void setVillagerData(net.minecraft.world.entity.npc.villager.VillagerData);
+  public boolean getVillagerDataFinalized();
+  public void setVillagerDataFinalized(boolean);
+  public net.minecraft.world.entity.npc.villager.VillagerData getVillagerData();
+  public int getVillagerXp();
+  public void setVillagerXp(int);
+  public <T> T get(net.minecraft.core.component.DataComponentType<? extends T>);
+}
+Compiled from "ZombifiedPiglin.java"
+public class net.minecraft.world.entity.monster.zombie.ZombifiedPiglin extends net.minecraft.world.entity.monster.zombie.Zombie implements net.minecraft.world.entity.NeutralMob {
+  public net.minecraft.world.entity.monster.zombie.ZombifiedPiglin(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.zombie.ZombifiedPiglin>, net.minecraft.world.level.Level);
+  public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
+  public net.minecraft.world.entity.EntityDimensions getDefaultDimensions(net.minecraft.world.entity.Pose);
+  public void setTarget(net.minecraft.world.entity.LivingEntity);
+  public void startPersistentAngerTimer();
+  public static boolean checkZombifiedPiglinSpawnRules(net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.zombie.ZombifiedPiglin>, net.minecraft.world.level.LevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
+  public boolean checkSpawnObstruction(net.minecraft.world.level.LevelReader);
+  public void setPersistentAngerEndTime(long);
+  public long getPersistentAngerEndTime();
+  public void setPersistentAngerTarget(net.minecraft.world.entity.EntityReference<net.minecraft.world.entity.LivingEntity>);
+  public void populateDefaultEquipmentSlots(net.minecraft.util.RandomSource, net.minecraft.world.DifficultyInstance);
+  public net.minecraft.world.entity.EntityReference<net.minecraft.world.entity.LivingEntity> getPersistentAngerTarget();
+  public boolean isPreventingPlayerRest(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.player.Player);
+  public boolean wantsToPickUp(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack);
+}
+Compiled from "package-info.java"
+interface net.minecraft.world.entity.monster.zombie.package-info {
+}
