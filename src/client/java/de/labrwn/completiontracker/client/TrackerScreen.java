@@ -59,7 +59,7 @@ public class TrackerScreen extends Screen {
 	private double chronX;
 	private double chronY;
 	private boolean chronDragging;
-	private String openDropdown;
+	private static String openDropdown;
 
 	private EditBox search;
 	private final List<Hit> hits = new ArrayList<>();
@@ -77,6 +77,17 @@ public class TrackerScreen extends Screen {
 
 	public TrackerScreen() {
 		super(Component.translatable("screen.completiontracker.title"));
+	}
+
+	/** Used by the automated in-game test to show a given page. */
+	public static void debugShow(int tabIndex, String select, String dropdown) {
+		tab = tabIndex;
+		selKey = select;
+		openDropdown = dropdown;
+		if (dropdown != null) {
+			dropX = 300;
+			dropW = 100;
+		}
 	}
 
 	// ------------------------------------------------------------------ lifecycle
@@ -741,7 +752,7 @@ public class TrackerScreen extends Screen {
 		}
 	}
 
-	private int dropX, dropW;
+	private static int dropX, dropW;
 
 	private void drawDropdown(GuiGraphicsExtractor g, int mx, int my) {
 		String[] keys = openDropdown.equals("show")

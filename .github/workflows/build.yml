@@ -31,6 +31,14 @@ jobs:
         env:
           BUILD_NUMBER: ${{ github.run_number }}
 
+      - name: In-game test with screenshots
+        id: gametest
+        continue-on-error: true
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq xvfb mesa-utils libgl1-mesa-dri > /dev/null
+          xvfb-run -a -s "-screen 0 1920x1080x24" ./gradlew runClientGameTest --stacktrace 2>&1 | tee gametest-log.txt
+          exit ${PIPESTATUS[0]}
+
       - name: Dump Minecraft API signatures
         if: always()
         run: ./tools/dump-api.sh
@@ -42,8 +50,12 @@ jobs:
         run: |
           rm -rf /tmp/ci-out && mkdir -p /tmp/ci-out
           cp -r api-dump /tmp/ci-out/ 2>/dev/null || true
-          cp build-log.txt /tmp/ci-out/ 2>/dev/null || true
+          cp build-log.txt gametest-log.txt /tmp/ci-out/ 2>/dev/null || true
           find /tmp/ci-out -type f ! -name '*.txt' -delete
+          # screenshots of our own menu from the in-game test
+          mkdir -p /tmp/ci-out/screenshots
+          find build run -path '*screenshots*' -name '*.png' -newer build.gradle -exec cp {} /tmp/ci-out/screenshots/ \; 2>/dev/null || true
+          find . -path ./node_modules -prune -o -name 'latest.log' -path '*clientGameTest*' -print -exec cp {} /tmp/ci-out/gametest-latest.txt \; 2>/dev/null || true
           echo "${{ github.sha }} run ${{ github.run_number }} result ${{ job.status }}" > /tmp/ci-out/RUN.txt
           cd /tmp/ci-out
           git init -q -b ci-output
