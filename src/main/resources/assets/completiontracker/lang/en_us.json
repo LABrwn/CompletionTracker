@@ -34,6 +34,7 @@
 	"completiontracker.diff.2": "Medium",
 	"completiontracker.diff.3": "Hard",
 	"completiontracker.diff.4": "Very hard",
+	"completiontracker.difficulty": "Difficulty: %s",
 	"completiontracker.entries": "%s entries",
 	"completiontracker.fact.found_via": "Recognised via",
 	"completiontracker.fact.kills": "Kills",

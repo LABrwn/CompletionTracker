@@ -34,6 +34,7 @@ jobs:
       - name: In-game test with screenshots
         id: gametest
         continue-on-error: true
+        timeout-minutes: 15
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq xvfb mesa-utils libgl1-mesa-dri > /dev/null
           xvfb-run -a -s "-screen 0 1920x1080x24" ./gradlew runClientGameTest --stacktrace 2>&1 | tee gametest-log.txt

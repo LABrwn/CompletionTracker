@@ -70,7 +70,6 @@ public class TrackerScreen extends Screen {
 	private int listX, listY, listW, listH;
 	private int detX, detY, detW, detH;
 	private int chronAreaX, chronAreaY, chronAreaW, chronAreaH;
-	private int ctrlY;
 
 	private record Hit(int x, int y, int w, int h, Runnable action) {
 	}
@@ -86,6 +85,7 @@ public class TrackerScreen extends Screen {
 		openDropdown = dropdown;
 		if (dropdown != null) {
 			dropX = 300;
+			dropY = 60;
 			dropW = 100;
 		}
 	}
@@ -154,13 +154,22 @@ public class TrackerScreen extends Screen {
 
 	// ------------------------------------------------------------------ layout
 
+	private int tabRowY, catRowY;
+	private boolean filtersOwnRow;
+
 	private void layout() {
-		bx = 8;
-		by = 40;
-		bw = width - 16;
-		bh = height - by - 30;
+		int marginX = Math.max(20, width / 14);
+		bw = Math.min(width - 2 * marginX, 760);
+		int topRows = 44;
+		filtersOwnRow = categoriesWidth() + filtersWidth() + 30 > bw;
+		if (filtersOwnRow) topRows += 22;
+		int marginY = Math.max(10, height / 16);
+		bh = Math.min(height - 2 * marginY - topRows, 440);
+		bx = (width - bw) / 2;
+		by = (height - bh - topRows) / 2 + topRows;
+		tabRowY = by - topRows;
+		catRowY = by - 18;
 		mid = bx + bw / 2;
-		ctrlY = by + bh + 6;
 		int pageTop = by + 6;
 		int pageBottom = by + bh - 6;
 		listX = bx + 16;
@@ -175,6 +184,18 @@ public class TrackerScreen extends Screen {
 		chronAreaY = pageTop + 30;
 		chronAreaW = bw - 28;
 		chronAreaH = pageBottom - 6 - chronAreaY;
+	}
+
+	private int categoriesWidth() {
+		int w = 0;
+		for (String c : CATS[tab]) w += font.width(Component.translatable("completiontracker.cat." + c)) + 16;
+		return w;
+	}
+
+	private int filtersWidth() {
+		int w = 0;
+		for (Btn b : filterButtons()) w += Ui.buttonWidth(font, b.text, b.dot != 0) + 4;
+		return w;
 	}
 
 	private boolean isListTab() {
@@ -261,7 +282,8 @@ public class TrackerScreen extends Screen {
 				drawDetail(g, mx, my);
 			}
 		}
-		drawControls(g, mx, my);
+		drawOverall(g);
+		drawFilters(g, mx, my);
 	}
 
 	@Override
@@ -279,17 +301,18 @@ public class TrackerScreen extends Screen {
 			if (model != null && i >= 1 && i <= 3) pct = Component.literal(totalsOfTab(i).percent() + " %");
 			int w = font.width(label) + 12 + (pct == null ? 0 : font.width(pct) + 8);
 			boolean on = tab == i;
-			boolean hover = Ui.in(mx, my, x, 6, w, 16);
-			Ui.outline(g, x, 6, w, 16, on ? Ui.TAB_TEXT : Ui.EDGE);
-			Ui.bevel(g, x, 6, w, 16, on ? Ui.LEATHER_HI : hover ? Ui.LEATHER : Ui.TAB_OFF, on ? 0xFFC96A4C : 0xFF8C3A24, Ui.LEATHER_LO);
-			g.text(font, label, x + 6, 10, Ui.TAB_TEXT, true);
+			int ty = tabRowY;
+			boolean hover = Ui.in(mx, my, x, ty, w, 16);
+			Ui.outline(g, x, ty, w, 16, on ? Ui.TAB_TEXT : Ui.EDGE);
+			Ui.bevel(g, x, ty, w, 16, on ? Ui.LEATHER_HI : hover ? Ui.LEATHER : Ui.TAB_OFF, on ? 0xFFC96A4C : 0xFF8C3A24, Ui.LEATHER_LO);
+			g.text(font, label, x + 6, ty + 4, Ui.TAB_TEXT, true);
 			if (pct != null) {
 				int px = x + 6 + font.width(label) + 6;
-				g.fill(px - 2, 9, px + font.width(pct) + 2, 19, Ui.PAGE);
-				g.text(font, pct, px, 10, Ui.INK, false);
+				g.fill(px - 2, ty + 3, px + font.width(pct) + 2, ty + 13, Ui.PAGE);
+				g.text(font, pct, px, ty + 4, Ui.INK, false);
 			}
 			final int t = i;
-			hits.add(new Hit(x, 6, w, 16, () -> switchTab(t)));
+			hits.add(new Hit(x, ty, w, 16, () -> switchTab(t)));
 			x += w + 5;
 		}
 		// category bookmarks, attached to the book
@@ -298,7 +321,7 @@ public class TrackerScreen extends Screen {
 			Component label = Component.translatable("completiontracker.cat." + CATS[tab][i]);
 			int w = font.width(label) + 12;
 			boolean on = catIndex[tab] == i;
-			int top = on ? 26 : 28;
+			int top = on ? catRowY - 2 : catRowY;
 			Ui.outline(g, x, top, w, by - top, Ui.EDGE);
 			Ui.bevel(g, x, top, w, by - top + 2, on ? Ui.PAGE : Ui.PAGE2, 0xFFFFFDF4, Ui.PAGE_LINE);
 			g.text(font, label, x + 6, top + 3, on ? Ui.INK : Ui.INK_SOFT, false);
@@ -690,22 +713,13 @@ public class TrackerScreen extends Screen {
 
 	// ---------------------------------------------------------------- controls + dropdown
 
-	private void drawControls(GuiGraphicsExtractor g, int mx, int my) {
-		int h = 18;
-		int y = ctrlY;
-		int total = 0;
-		record Btn(Component text, int dot, boolean on, Runnable action, String dropdown) {
-		}
+	private record Btn(Component text, int dot, boolean on, Runnable action, String dropdown) {
+	}
+
+	private List<Btn> filterButtons() {
 		List<Btn> btns = new ArrayList<>();
 		if (isListTab()) {
-			for (int d = 0; d <= 4; d++) {
-				final int dd = d;
-				btns.add(new Btn(Component.translatable("completiontracker.diff." + d), Ui.DIFF[d], diff == d, () -> {
-					diff = dd;
-					viewDirty = true;
-					listScroll = 0;
-				}, null));
-			}
+			btns.add(new Btn(Component.translatable("completiontracker.difficulty", Component.translatable("completiontracker.diff." + diff)).append(" ▼"), Ui.DIFF[diff], diff != 0, null, "diff"));
 			btns.add(new Btn(Component.translatable("completiontracker.show", Component.translatable("completiontracker.show." + show)).append(" ▼"), 0, show != 0, null, "show"));
 			btns.add(new Btn(Component.translatable("completiontracker.sort", Component.translatable("completiontracker.sort." + sort)).append(" ▼"), 0, false, null, "sort"));
 		} else if (tab == 4) {
@@ -714,56 +728,66 @@ public class TrackerScreen extends Screen {
 			btns.add(new Btn(Component.literal(">"), 0, false, () -> chronX += COL_W * 3, null));
 			btns.add(new Btn(Component.translatable("completiontracker.chronicle.latest"), 0, false, () -> chronX = Double.MAX_VALUE, null));
 		}
-		int[] widths = new int[btns.size()];
-		for (int i = 0; i < btns.size(); i++) {
-			widths[i] = Ui.buttonWidth(font, btns.get(i).text, btns.get(i).dot != 0);
-			total += widths[i] + 4;
-		}
-		Totals all = model.all();
-		Component overall = Component.translatable("completiontracker.overall");
-		Component pct = Component.literal(all.percent() + " %  " + all.done + " / " + all.total);
-		int overallW = font.width(overall) + 6 + 80 + 6 + font.width(pct);
-		boolean showOverall = total + overallW + 12 <= width - 16;
-		int x = (width - total - (showOverall ? overallW + 12 : 0)) / 2;
-		for (int i = 0; i < btns.size(); i++) {
-			Btn b = btns.get(i);
-			boolean hover = Ui.in(mx, my, x, y, widths[i], h) && openDropdown == null;
-			Ui.button(g, font, b.text, x, y, widths[i], h, hover, b.on, b.dot);
-			final int bxp = x;
-			final int bw2 = widths[i];
+		return btns;
+	}
+
+	/** Filters sit at the top right: on the bookmark row, or on their own row when space is short. */
+	private void drawFilters(GuiGraphicsExtractor g, int mx, int my) {
+		List<Btn> btns = filterButtons();
+		int h = 16;
+		int y = filtersOwnRow ? tabRowY + 22 : catRowY - 1;
+		int x = bx + bw - 6 - filtersWidth();
+		for (Btn b : btns) {
+			int w = Ui.buttonWidth(font, b.text, b.dot != 0);
+			boolean hover = Ui.in(mx, my, x, y, w, h) && openDropdown == null;
+			Ui.button(g, font, b.text, x, y, w, h, hover, b.on, b.dot);
+			final int bxp = x, byp = y + h;
 			if (b.dropdown != null) {
-				hits.add(new Hit(x, y, widths[i], h, () -> {
+				hits.add(new Hit(x, y, w, h, () -> {
 					openDropdown = b.dropdown.equals(openDropdown) ? null : b.dropdown;
 					dropX = bxp;
-					dropW = bw2;
+					dropY = byp;
+					dropW = w;
 				}));
 			} else {
-				hits.add(new Hit(x, y, widths[i], h, b.action));
+				hits.add(new Hit(x, y, w, h, b.action));
 			}
-			x += widths[i] + 4;
-		}
-		if (showOverall) {
-			x += 8;
-			g.text(font, overall, x, y + 5, Ui.WHITE, true);
-			x += font.width(overall) + 6;
-			Ui.bar(g, x, y + 6, 80, 5, all.percent(), Ui.XP);
-			x += 86;
-			g.text(font, pct, x, y + 5, 0xFF80FF20, true);
+			x += w + 4;
 		}
 	}
 
-	private static int dropX, dropW;
+	private void drawOverall(GuiGraphicsExtractor g) {
+		Totals all = model.all();
+		Component overall = Component.translatable("completiontracker.overall");
+		Component pct = Component.literal(all.percent() + " %  " + all.done + " / " + all.total);
+		int w = font.width(overall) + 6 + 70 + 6 + font.width(pct);
+		int x = bx + bw - 6 - w;
+		int y = tabRowY + 4;
+		g.text(font, overall, x, y, Ui.WHITE, true);
+		x += font.width(overall) + 6;
+		Ui.bar(g, x, y + 1, 70, 5, all.percent(), Ui.XP);
+		x += 76;
+		g.text(font, pct, x, y, 0xFF80FF20, true);
+	}
+
+	private static int dropX, dropY, dropW;
 
 	private void drawDropdown(GuiGraphicsExtractor g, int mx, int my) {
-		String[] keys = openDropdown.equals("show")
-				? new String[]{"completiontracker.show.0", "completiontracker.show.1", "completiontracker.show.2"}
-				: new String[]{"completiontracker.sort.0", "completiontracker.sort.1", "completiontracker.sort.2", "completiontracker.sort.3"};
-		int current = openDropdown.equals("show") ? show : sort;
+		String[] keys = switch (openDropdown) {
+			case "show" -> new String[]{"completiontracker.show.0", "completiontracker.show.1", "completiontracker.show.2"};
+			case "diff" -> new String[]{"completiontracker.diff.0", "completiontracker.diff.1", "completiontracker.diff.2", "completiontracker.diff.3", "completiontracker.diff.4"};
+			default -> new String[]{"completiontracker.sort.0", "completiontracker.sort.1", "completiontracker.sort.2", "completiontracker.sort.3"};
+		};
+		int current = switch (openDropdown) {
+			case "show" -> show;
+			case "diff" -> diff;
+			default -> sort;
+		};
 		int w = dropW;
 		for (String k : keys) w = Math.max(w, font.width(Component.translatable(k)) + 24);
 		int h = keys.length * 12 + 4;
-		int x = dropX;
-		int y = ctrlY - h - 3;
+		int x = Math.min(dropX, width - w - 4);
+		int y = dropY + 2;
 		g.fill(x - 1, y - 1, x + w + 1, y + h + 1, 0xFFA0A0A0);
 		g.fill(x, y, x + w, y + h, 0xFF000000);
 		for (int i = 0; i < keys.length; i++) {
@@ -771,11 +795,16 @@ public class TrackerScreen extends Screen {
 			boolean hover = Ui.in(mx, my, x, iy, w, 12);
 			if (hover) g.fill(x + 1, iy, x + w - 1, iy + 12, 0xFF3A3A3A);
 			Component label = Component.literal(i == current ? "> " : "  ").append(Component.translatable(keys[i]));
-			g.text(font, label, x + 5, iy + 2, i == current ? 0xFFFFFF55 : hover ? Ui.WHITE : 0xFFE0E0E0, false);
+			int color = i == current ? 0xFFFFFF55 : hover ? Ui.WHITE : 0xFFE0E0E0;
+			if (openDropdown.equals("diff") && i > 0) color = Ui.DIFF[i];
+			g.text(font, label, x + 5, iy + 2, color, false);
 			final int idx = i;
 			popupHits.add(new Hit(x, iy, w, 12, () -> {
-				if (openDropdown.equals("show")) show = idx;
-				else sort = idx;
+				switch (openDropdown) {
+					case "show" -> show = idx;
+					case "diff" -> diff = idx;
+					default -> sort = idx;
+				}
 				viewDirty = true;
 				listScroll = 0;
 				openDropdown = null;
@@ -797,7 +826,7 @@ public class TrackerScreen extends Screen {
 			}
 			openDropdown = null;
 			// a click on the dropdown's own button just closes it
-			for (Hit h : hits) if (Ui.in(mx, my, h.x, h.y, h.w, h.h) && h.y >= ctrlY) return true;
+			for (Hit h : hits) if (Ui.in(mx, my, h.x, h.y, h.w, h.h) && h.y < by) return true;
 		}
 		if (super.mouseClicked(event, doubleClick)) return true;
 		if (search.isFocused() && !Ui.in(mx, my, search.getX(), search.getY(), search.getWidth(), search.getHeight())) search.setFocused(false);
