@@ -1,5 +1,20 @@
 {
 	"key.category.completiontracker.main": "Sammel-Tracker",
 	"key.completiontracker.open": "Sammel-Tracker öffnen",
-	"screen.completiontracker.title": "Sammel-Tracker"
+	"screen.completiontracker.title": "Sammel-Tracker",
+	"completiontracker.debug.no_data": "Noch keine Daten (vorerst nur im Einzelspieler).",
+	"completiontracker.debug.today": "Heute: Tag %s",
+	"completiontracker.debug.installed": "Installiert an Tag %s",
+	"completiontracker.debug.mobs": "Mob-Arten getötet: %s",
+	"completiontracker.debug.variants": "Varianten seit Installation: %s",
+	"completiontracker.debug.items": "Items gesammelt: %s",
+	"completiontracker.debug.advancements": "Fortschritte: %s",
+	"completiontracker.debug.recent": "Zuletzt erfasst",
+	"completiontracker.kind.item": "Item",
+	"completiontracker.kind.mob": "Mob",
+	"completiontracker.kind.variant": "Variante",
+	"completiontracker.kind.advancement": "Fortschritt",
+	"completiontracker.day": "Tag %s",
+	"completiontracker.day.estimated": "Tag %s (geschätzt)",
+	"completiontracker.day.unknown": "ohne Tag"
 }

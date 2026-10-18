@@ -1,5 +1,6 @@
 package de.labrwn.completiontracker;
 
+import de.labrwn.completiontracker.track.Tracker;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ public class CompletionTracker implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		Tracker.register();
 		LOGGER.info("Completion Tracker loaded");
 	}
 

@@ -47,6 +47,11 @@ pkgs=(
   net/minecraft/world/item/component/
   net/minecraft/network/chat/Component
   net/minecraft/world/damagesource/DamageSource
+  net/minecraft/server/ServerAdvancementManager
+  net/minecraft/world/entity/player/Player
+  net/minecraft/world/inventory/Slot
+  net/minecraft/core/Registry
+  net/minecraft/core/DefaultedRegistry
 )
 for p in "${pkgs[@]}"; do
   name=$(echo "$p" | tr '/' '.' | sed 's/\.$//')
