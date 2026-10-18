@@ -35,19 +35,23 @@ jobs:
         if: always()
         run: ./tools/dump-api.sh
       - name: Publish build log and API dump to branch "ci-output"
+        # Only text files go there (signatures and the log), never game files.
         if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          rm -rf /tmp/ci-out && mkdir -p /tmp/ci-out
+          cp -r api-dump /tmp/ci-out/ 2>/dev/null || true
+          cp build-log.txt /tmp/ci-out/ 2>/dev/null || true
+          find /tmp/ci-out -type f ! -name '*.txt' -delete
+          echo "${{ github.sha }} run ${{ github.run_number }} result ${{ job.status }}" > /tmp/ci-out/RUN.txt
+          cd /tmp/ci-out
+          git init -q -b ci-output
           git config user.name "ci-bot"
           git config user.email "ci-bot@users.noreply.github.com"
-          mkdir -p /tmp/ci-out && cp -r api-dump /tmp/ci-out/ 2>/dev/null; cp build-log.txt /tmp/ci-out/ 2>/dev/null || true
-          echo "${{ github.sha }} run ${{ github.run_number }} result ${{ job.status }}" > /tmp/ci-out/RUN.txt
-          git fetch origin ci-output || true
-          git checkout --orphan ci-output-tmp
-          git rm -rf . -q
-          cp -r /tmp/ci-out/* .
           git add -A
           git commit -q -m "CI output for ${{ github.sha }}"
-          git push -f origin HEAD:ci-output
+          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" ci-output
 
       - name: Upload jar as artifact
         uses: actions/upload-artifact@v7

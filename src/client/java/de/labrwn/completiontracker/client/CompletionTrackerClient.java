@@ -20,8 +20,9 @@ public class CompletionTrackerClient implements ClientModInitializer {
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			while (openKey.consumeClick()) {
-				if (client.player != null && client.screen == null) {
-					client.setScreen(new TrackerScreen());
+				// Key mappings only fire while no other screen is open
+				if (client.player != null) {
+					client.setScreenAndShow(new TrackerScreen());
 				}
 			}
 		});
