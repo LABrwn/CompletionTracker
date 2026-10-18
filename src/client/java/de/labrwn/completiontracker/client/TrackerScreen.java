@@ -642,7 +642,9 @@ public class TrackerScreen extends Screen {
 			x += font.width(c) + 26;
 		}
 		Component note = Component.translatable("completiontracker.chronicle.note", model.today);
-		g.text(font, note, bx + bw - 16 - font.width(note), top, Ui.INK_SOFT, false);
+		int noteX = bx + bw - 16 - font.width(note);
+		if (noteX > x) g.text(font, note, noteX, top, Ui.INK_SOFT, false);
+		else g.text(font, Ui.clip(font, note.getString(), bw - 32), bx + 16, top + 11, Ui.INK_SOFT, false);
 
 		List<Day> days = model.chronicle;
 		int maxRows = 0;
