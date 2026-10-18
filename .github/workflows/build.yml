@@ -5,6 +5,8 @@ on:
   push:
     branches: ['**']
     tags: ['v*']
+  release:
+    types: [published]
   workflow_dispatch:
 
 permissions:
@@ -32,7 +34,7 @@ jobs:
           exit ${PIPESTATUS[0]}
         env:
           BUILD_NUMBER: ${{ github.run_number }}
-          RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
+          RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release' }}
 
       - name: In-game test with screenshots
         id: gametest
@@ -90,7 +92,7 @@ jobs:
 
       - name: Publish the official release
         # Pushing a tag like v1.0.0 creates the release "Completion Tracker 1.0.0" with the .jar
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -99,3 +101,9 @@ jobs:
           gh release create "$GITHUB_REF_NAME" build/libs/completiontracker-*.jar \
             --title "Completion Tracker ${VERSION} (Minecraft 26.3)" \
             --notes-file release-notes.md --latest
+
+      - name: Attach jar to a release created on github.com
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ github.event.release.tag_name }}" build/libs/completiontracker-*.jar --clobber
