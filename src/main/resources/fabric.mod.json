@@ -1,0 +1,24 @@
+{
+	"schemaVersion": 1,
+	"id": "completiontracker",
+	"version": "${version}",
+	"name": "Completion Tracker",
+	"description": "Tracks every mob killed, every item collected and every advancement reached, with hints for what is still missing.",
+	"authors": ["LABrwn"],
+	"contact": {
+		"sources": "https://github.com/LABrwn/MC_All_Mobs_Blocks"
+	},
+	"license": "All-Rights-Reserved",
+	"icon": "assets/completiontracker/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": ["de.labrwn.completiontracker.CompletionTracker"],
+		"client": ["de.labrwn.completiontracker.client.CompletionTrackerClient"]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
