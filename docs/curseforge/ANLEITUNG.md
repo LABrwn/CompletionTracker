@@ -21,5 +21,5 @@
 ## Neue Versionen später
 
 1. Versionsnummer in `gradle.properties` erhöhen und `CHANGELOG.md` ergänzen.
-2. Auf GitHub ein Release mit dem Tag `v1.0.1` (usw.) anlegen. GitHub baut dann automatisch die passende .jar und hängt sie an.
+2. Claude (oder du per Git) setzt den Tag `v1.0.1` (usw.). GitHub baut dann automatisch das Release „Completion Tracker 1.0.1“ mit der passenden .jar.
 3. Die .jar wie oben bei CurseForge unter *Files* hochladen.
