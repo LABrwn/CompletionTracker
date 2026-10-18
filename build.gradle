@@ -2,9 +2,11 @@ plugins {
 	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 }
 
-// GitHub Actions passes the run number so every build has its own version
+// Release builds (git tag v1.2.3) get the plain version, all other builds a dev number.
+// "+mc26.3" names the Minecraft version, e.g. completiontracker-1.0.0+mc26.3.jar
 def buildNumber = System.getenv('BUILD_NUMBER')
-version = buildNumber ? "${project.version}+build.${buildNumber}" : project.version
+def isRelease = System.getenv('RELEASE') == 'true'
+version = (isRelease || !buildNumber ? project.version : "${project.version}-dev.${buildNumber}") + "+mc${project.minecraft_version}"
 
 loom {
 	splitEnvironmentSourceSets()

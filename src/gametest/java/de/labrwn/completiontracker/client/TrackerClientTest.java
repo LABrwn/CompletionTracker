@@ -49,7 +49,8 @@ public class TrackerClientTest implements FabricClientGameTest {
 		ctx.waitTick();
 		TrackerScreen.debugShow(tab, select, dropdown);
 		ctx.setScreen(TrackerScreen::new);
-		ctx.waitTicks(5);
+		ctx.waitTicks(10); // data arrives from the server
+		ctx.getInput().setCursorPos(0, 0);
 		ctx.takeScreenshot(name);
 	}
 }

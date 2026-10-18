@@ -1,6 +1,8 @@
 package de.labrwn.completiontracker.client;
 
 import de.labrwn.completiontracker.model.ModelBuilder;
+import de.labrwn.completiontracker.net.Payloads;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import de.labrwn.completiontracker.model.TrackerModel;
 import de.labrwn.completiontracker.model.TrackerModel.ChronEntry;
 import de.labrwn.completiontracker.model.TrackerModel.Day;
@@ -12,9 +14,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.MouseButtonEvent;
-import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -23,8 +23,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 
 /** The tracker book: overview, mobs, items & blocks, advancements and chronicle. */
 public class TrackerScreen extends Screen {
@@ -49,7 +47,8 @@ public class TrackerScreen extends Screen {
 	private static String query = "";
 
 	private TrackerModel model;
-	private CompletableFuture<TrackerModel> pending;
+	private int seenVersion = -1;
+	private boolean serverMissing;
 	private int refreshTimer;
 
 	private List<Row> view = List.of();
@@ -108,40 +107,30 @@ public class TrackerScreen extends Screen {
 			listScroll = 0;
 		});
 		addRenderableWidget(search);
-		if (model == null) loadModel(true);
+		if (model == null && TrackerClientData.latest() != null) {
+			model = ModelBuilder.build(TrackerClientData.latest());
+			seenVersion = TrackerClientData.version();
+		}
+		loadModel(true);
 	}
 
-	private void loadModel(boolean blocking) {
-		IntegratedServer server = minecraft.getSingleplayerServer();
-		if (server == null || minecraft.player == null) return;
-		var uuid = minecraft.player.getUUID();
-		pending = server.submit(() -> {
-			ServerPlayer sp = server.getPlayerList().getPlayer(uuid);
-			return sp == null ? null : ModelBuilder.build(server, sp);
-		});
-		if (blocking) {
-			try {
-				model = pending.get(3, TimeUnit.SECONDS);
-				pending = null;
-				viewDirty = true;
-			} catch (Exception ignored) {
-				// shown as soon as it is ready
-			}
+	private void loadModel(boolean first) {
+		if (!ClientPlayNetworking.canSend(Payloads.Request.TYPE)) {
+			serverMissing = true;
+			return;
 		}
+		ClientPlayNetworking.send(Payloads.Request.INSTANCE);
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
-		if (pending != null && pending.isDone()) {
-			TrackerModel m = pending.getNow(null);
-			if (m != null) {
-				model = m;
-				viewDirty = true;
-			}
-			pending = null;
+		if (TrackerClientData.version() != seenVersion && TrackerClientData.latest() != null) {
+			seenVersion = TrackerClientData.version();
+			model = ModelBuilder.build(TrackerClientData.latest());
+			viewDirty = true;
 		}
-		if (++refreshTimer >= 40 && pending == null) {
+		if (++refreshTimer >= 40) {
 			refreshTimer = 0;
 			loadModel(false);
 		}
@@ -284,7 +273,7 @@ public class TrackerScreen extends Screen {
 		drawTabs(g, mx, my);
 		drawBook(g);
 		if (model == null) {
-			Ui.centered(g, font, Component.translatable("completiontracker.no_data"), width / 2, by + bh / 2, Ui.INK);
+			Ui.centered(g, font, Component.translatable(serverMissing ? "completiontracker.server_missing" : "completiontracker.loading"), width / 2, by + bh / 2, Ui.INK);
 			return;
 		}
 		switch (tab) {

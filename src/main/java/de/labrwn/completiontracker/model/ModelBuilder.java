@@ -3,7 +3,6 @@ package de.labrwn.completiontracker.model;
 import de.labrwn.completiontracker.catalog.Catalog;
 import de.labrwn.completiontracker.data.Entry;
 import de.labrwn.completiontracker.data.PlayerProgress;
-import de.labrwn.completiontracker.data.ProgressStore;
 import de.labrwn.completiontracker.model.TrackerModel.ChronEntry;
 import de.labrwn.completiontracker.model.TrackerModel.Day;
 import de.labrwn.completiontracker.model.TrackerModel.Kind;
@@ -11,17 +10,11 @@ import de.labrwn.completiontracker.model.TrackerModel.Row;
 import de.labrwn.completiontracker.model.TrackerModel.State;
 import de.labrwn.completiontracker.model.TrackerModel.Sub;
 import de.labrwn.completiontracker.model.TrackerModel.Totals;
-import de.labrwn.completiontracker.track.Days;
-import net.minecraft.advancements.AdvancementHolder;
-import net.minecraft.advancements.AdvancementProgress;
-import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.DisplayInfo;
+import de.labrwn.completiontracker.net.SyncData;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -33,15 +26,15 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
-/** Turns catalog + recorded progress + vanilla advancement progress into a {@link TrackerModel}. Server thread only. */
+/** Turns the catalog and the data sent by the server into a {@link TrackerModel}. Runs on the client. */
 public final class ModelBuilder {
 	private ModelBuilder() {
 	}
 
-	public static TrackerModel build(MinecraftServer server, ServerPlayer player) {
+	public static TrackerModel build(SyncData data) {
 		TrackerModel m = new TrackerModel();
-		m.today = Days.today(server);
-		PlayerProgress p = ProgressStore.get(server, player.getUUID());
+		m.today = data.today;
+		PlayerProgress p = data.progress;
 		Catalog cat = Catalog.get();
 		Map<Integer, Day> days = new TreeMap<>();
 
@@ -126,43 +119,41 @@ public final class ModelBuilder {
 		}
 
 		// ---- advancements
-		List<AdvancementHolder> holders = new ArrayList<>(server.getAdvancements().getAllAdvancements());
-		holders.sort((a, b) -> a.id().toString().compareTo(b.id().toString()));
+		List<SyncData.Adv> advs = new ArrayList<>(data.advancements);
+		advs.sort((x, y) -> x.id.compareTo(y.id));
 		order = 0;
-		for (AdvancementHolder h : holders) {
-			if (h.value().display().isEmpty() || h.id().getPath().startsWith("recipes/")) continue;
-			DisplayInfo d = h.value().display().get();
-			String tab = h.id().getPath().split("/")[0];
-			AdvancementProgress progress = player.getAdvancements().getOrStartProgress(h);
+		for (SyncData.Adv a : advs) {
+			Identifier id = Identifier.tryParse(a.id);
+			if (id == null) continue;
+			String tab = id.getPath().split("/")[0];
 			Row r = new Row();
 			r.kind = Kind.ADVANCEMENT;
-			r.key = "a:" + h.id();
-			r.name = d.title();
-			r.icon = d.icon().create();
+			r.key = "a:" + a.id;
+			r.name = a.titleKey != null ? Component.translatable(a.titleKey) : Component.literal(String.valueOf(a.titleText));
+			Identifier icon = Identifier.tryParse(a.icon);
+			r.icon = icon != null && BuiltInRegistries.ITEM.containsKey(icon) ? BuiltInRegistries.ITEM.getValue(icon).getDefaultInstance() : new ItemStack(Items.BOOK);
 			r.cat = tab;
-			r.frame = d.type() == AdvancementType.CHALLENGE ? "challenge" : d.type() == AdvancementType.GOAL ? "goal" : "task";
-			r.diff = cat.advancementDifficulty.getOrDefault(h.id().toString(), d.type() == AdvancementType.TASK ? 1 : d.type() == AdvancementType.GOAL ? 2 : 3);
+			r.frame = a.type == null ? "task" : a.type;
+			r.diff = cat.advancementDifficulty.getOrDefault(a.id, r.frame.equals("task") ? 1 : r.frame.equals("goal") ? 2 : 3);
 			r.order = order++;
-			r.done = r.complete = progress.isDone();
+			r.done = r.complete = a.done;
 			r.state = r.done ? State.DONE : State.OPEN;
-			r.hint = d.description();
-			List<List<String>> reqs = h.value().requirements().requirements();
-			if (reqs.size() > 1) {
+			r.hint = a.descKey != null ? Component.translatable(a.descKey) : Component.literal(String.valueOf(a.descText));
+			if (a.reqs.size() > 1) {
 				int doneCount = 0;
-				for (List<String> group : reqs) {
+				for (SyncData.Req req : a.reqs) {
 					Sub s = new Sub();
-					s.name = criterionName(h.id().getPath(), group.get(0));
-					boolean ok = group.stream().anyMatch(c -> progress.getCriterion(c) != null && progress.getCriterion(c).isDone());
-					s.state = ok ? State.DONE : State.OPEN;
-					if (ok) doneCount++;
+					s.name = criterionName(id.getPath(), req.name);
+					s.state = req.done ? State.DONE : State.OPEN;
+					if (req.done) doneCount++;
 					r.subs.add(s);
 				}
-				r.meta = Component.translatable("completiontracker.meta.done_of", doneCount, reqs.size());
+				r.meta = Component.translatable("completiontracker.meta.done_of", doneCount, a.reqs.size());
 			} else {
 				r.meta = Component.translatable("completiontracker.cat." + tab);
 			}
 			r.status = Component.translatable(r.done ? "completiontracker.status.done" : "completiontracker.status.open");
-			Entry e = p.advancements.get(h.id().toString());
+			Entry e = p.advancements.get(a.id);
 			if (e != null) {
 				r.facts.add(new Component[]{Component.translatable("completiontracker.fact.reached"), dayText(e)});
 				addChron(days, e, Kind.ADVANCEMENT, r.name, r.icon, true);

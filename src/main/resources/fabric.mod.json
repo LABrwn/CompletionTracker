@@ -3,17 +3,25 @@
 	"id": "completiontracker",
 	"version": "${version}",
 	"name": "Completion Tracker",
-	"description": "Tracks every mob killed, every item collected and every advancement reached, with hints for what is still missing.",
-	"authors": ["LABrwn"],
+	"description": "Tracks every mob you kill (including variants), every item you collect and every advancement you reach, with hints and difficulty for everything still missing, an overview and a day-by-day chronicle.",
+	"authors": [
+		"LABrwn"
+	],
 	"contact": {
-		"sources": "https://github.com/LABrwn/MC_All_Mobs_Blocks"
+		"homepage": "https://github.com/LABrwn/MC_All_Mobs_Blocks",
+		"sources": "https://github.com/LABrwn/MC_All_Mobs_Blocks",
+		"issues": "https://github.com/LABrwn/MC_All_Mobs_Blocks/issues"
 	},
-	"license": "All-Rights-Reserved",
+	"license": "MIT",
 	"icon": "assets/completiontracker/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": ["de.labrwn.completiontracker.CompletionTracker"],
-		"client": ["de.labrwn.completiontracker.client.CompletionTrackerClient"]
+		"main": [
+			"de.labrwn.completiontracker.CompletionTracker"
+		],
+		"client": [
+			"de.labrwn.completiontracker.client.CompletionTrackerClient"
+		]
 	},
 	"depends": {
 		"fabricloader": ">=0.19.5",

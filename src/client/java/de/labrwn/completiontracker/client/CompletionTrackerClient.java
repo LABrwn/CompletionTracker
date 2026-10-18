@@ -14,6 +14,7 @@ public class CompletionTrackerClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		TrackerClientData.register();
 		KeyMapping.Category category = KeyMapping.Category.register(CompletionTracker.id("main"));
 		openKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
 				"key.completiontracker.open", InputConstants.Type.KEYBOARD, SDLScancode.SDL_SCANCODE_J, category));

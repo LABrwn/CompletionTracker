@@ -14,6 +14,7 @@ public class CompletionTracker implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		Tracker.register();
+		de.labrwn.completiontracker.net.SyncBuilder.register();
 		LOGGER.info("Completion Tracker loaded");
 	}
 
