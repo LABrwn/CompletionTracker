@@ -35,9 +35,12 @@ jobs:
         id: gametest
         continue-on-error: true
         timeout-minutes: 15
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq xvfb mesa-utils libgl1-mesa-dri > /dev/null
-          xvfb-run -a -s "-screen 0 1920x1080x24" ./gradlew runClientGameTest --stacktrace 2>&1 | tee gametest-log.txt
+          sudo apt-get update -qq && sudo apt-get install -y -qq xvfb mesa-utils libgl1-mesa-dri libglx-mesa0 libegl1 mesa-vulkan-drivers > /dev/null
+          xvfb-run -a -s "-screen 0 1920x1080x24 +extension GLX +render -noreset" glxinfo -B | head -20 || true
+          xvfb-run -a -s "-screen 0 1920x1080x24 +extension GLX +render -noreset" ./gradlew runClientGameTest --stacktrace 2>&1 | tee gametest-log.txt
           exit ${PIPESTATUS[0]}
 
       - name: Dump Minecraft API signatures
